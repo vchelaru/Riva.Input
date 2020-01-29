@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 namespace GenericControllersTest.XBoxIdentify
 {
-    class XBoxRecognition
+    class XInputRecognition
     {
         public List<MatchDevInfs> DeviceInfosPaired;
         public List<IGrouping<uint, GenericControllersTest.XBoxIdentify.PnPEntityInfo>> PnPGroupsUnpaired;
@@ -104,7 +104,7 @@ namespace GenericControllersTest.XBoxIdentify
         {
             foreach (var pnpEntityInfo in collection)
             {
-                if (pnpEntityInfo.DeviceID.Contains(WMI.XBoxControllerDeviceIDMarker))
+                if (pnpEntityInfo.DeviceID.Contains(WMI.XInputDeviceIDMarker))
                 {
                     pnpEntityInfo.IsXBoxDevice = true;
                     pnpEntityInfo.VID_PID = WMI.Get_VID_PID(pnpEntityInfo.DeviceID);

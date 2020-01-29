@@ -90,7 +90,7 @@ namespace GenericControllersTest.XBoxIdentify
 
             int pidIndex = deviceID.IndexOf(WMI.PIDprefix);
             int vidIndex = deviceID.IndexOf(WMI.VIDprefix);
-            int igIndex = deviceID.IndexOf(WMI.XBoxControllerDeviceIDMarker);
+            int igIndex = deviceID.IndexOf(WMI.XInputDeviceIDMarker);
             int igIDEndIndex = -1;
 
             //int[] startIndexes = new int[] { pidIndex, vidIndex, igIndex };

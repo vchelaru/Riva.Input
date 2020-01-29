@@ -20,9 +20,9 @@ using System.Diagnostics;
 
 namespace GenericControllersTest
 {
-    public partial class XBoxIdentifyWindow : Window
+    public partial class XInputIdentifyWindow : Window
     {
-        public XBoxIdentifyWindow()
+        public XInputIdentifyWindow()
         {
             ContentRendered += _ContentRendered;
 
@@ -33,7 +33,7 @@ namespace GenericControllersTest
         {
             ContentRendered -= _ContentRendered;
 
-            var xboxRecognition = new XBoxRecognition();
+            var xboxRecognition = new XInputRecognition();
 
             #region    --- Load data from files
             List<GenericControllersTest.XBoxIdentify.PnPEntityInfo> PnPList_XBox;

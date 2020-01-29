@@ -8,7 +8,7 @@ namespace Riva.Input
     public class DirectInputManager
     {
         protected static List<DirectInputDevice> _Devices;
-        /// <summary>List of currently connected HID devices of type Gamepad and Joystick.</summary>
+        /// <summary>List of currently connected HID devices of Microsoft.DirectX.DirectInput.DeviceType Gamepad and Joystick.</summary>
 		public static List<DirectInputDevice> Devices
 		{
 			get
@@ -22,48 +22,29 @@ namespace Riva.Input
 
         /// <summary>
         /// This does not automaticaly update Devices. ReloadDevices() needs to be called after changing this variable, to update Devices list.
-        /// Setting this to true makes getting Devices / calling ReloadDevices() a lot more expensive operation !
+        /// Setting this to true makes getting Devices = calling ReloadDevices() a lot more expensive operation !
         /// </summary>
         /// <remarks>
-        /// When set to true, ReloadDevices() will go thru whole system PlugNPlay devices list via WMI. 
+        /// When set to true, ReloadDevices() will go thru whole system PlugNPlay devices list via WMI. <br>
         /// That is a slow operation.
         /// </remarks>
         public static bool ExcludeXInputDevices = false;
 
 
-		/// <summary>
-		/// Normally for internal use only; call if user has attached new Gamepads,
-		/// or detached Gamepads you want discarded
-		/// Otherwise, loaded once on first Gamepad request and does not reflect changes in gamepad attachment.
-		/// TODO: Do this better
-		/// </summary>
-		public static void ReloadDevices()
+        /// <summary>
+        /// Normally for internal use only. Call if user has attached new Gamepads,
+        /// or detached Gamepads you want discarded.
+        /// Otherwise, loaded once on first Devices request and does not reflect changes in gamepads attachment.
+        /// TODO: Do this better ?
+        /// </summary>
+        public static void ReloadDevices()
 		{
-            // gamepads are generally misidentified as Joysticks in DirectInput... get both
-
-            /*DeviceList gamepadInstanceList = Manager.GetDevices(DeviceType.Gamepad, EnumDevicesFlags.AttachedOnly);
-			DeviceList joystickInstanceList = Manager.GetDevices(DeviceType.Joystick, EnumDevicesFlags.AttachedOnly);
-
-            if (_Devices == null)
-                _Devices = new List<DirectInputDevice>(gamepadInstanceList.Count + joystickInstanceList.Count);
-            else
-                _Devices.Clear();
-
-            foreach (DeviceInstance deviceInstance in gamepadInstanceList)
-            {
-                DirectInputDevice device = new DirectInputDevice(deviceInstance, GamingDeviceType.Gamepad);
-                _Devices.Add(device);
-            }
-            foreach (DeviceInstance deviceInstance in joystickInstanceList)
-            {
-                DirectInputDevice device = new DirectInputDevice(deviceInstance, GamingDeviceType.Joystick);
-                _Devices.Add(device);
-            }*/
-
             if (_Devices == null)
                 _Devices = new List<DirectInputDevice>(16);
             else
                 _Devices.Clear();
+
+            // gamepads are generally misidentified as Joysticks in DirectInput... get both
 
             var devices =
                 Enumerable.Concat(
@@ -79,10 +60,10 @@ namespace Riva.Input
 
             if (ExcludeXInputDevices)
             {
-                uint[] xBoxes_VIDPIDs = WMI.GetAllXBoxControlersVIDPIDsFromPnPDevices();
+                uint[] xInputDevices_VIDPIDs = WMI.GetAllXInputDevicesVIDPIDsFromPnPDevices();
 
                 devices = devices
-                    .Where(dii => xBoxes_VIDPIDs.Contains( dii.DeviceInstance.ProductGuid.PartA() ) == false);
+                    .Where(dii => xInputDevices_VIDPIDs.Contains( dii.DeviceInstance.ProductGuid.PartA() ) == false);
             }
 
             var comparerOrdNoCase = new StringEqualityComparerOrdinalNoCase();

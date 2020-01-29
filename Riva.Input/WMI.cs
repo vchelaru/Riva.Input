@@ -22,7 +22,7 @@ namespace Riva.Input
         private const string ClassName = @"Win32_PNPEntity"; // does include all the USB devices, and hundreds more non-USB devices
         private const string DeviceID  = @"DeviceID";
 
-        public const string XBoxControllerDeviceIDMarker = "IG_";
+        public const string XInputDeviceIDMarker = "IG_";
         public const string VIDprefix = "VID_";
         public const string PIDprefix = "PID_";
 
@@ -219,7 +219,7 @@ namespace Riva.Input
         /// For each XBox controller found returns: 
         /// Number that matches first 4 bytes of that device's DirectInput ProductGuid.
         /// </returns>
-        public static uint[] GetAllXBoxControlersVIDPIDsFromPnPDevices(ManagementObjectCollection collection)
+        public static uint[] GetAllXInputDevicesVIDPIDsFromPnPDevices(ManagementObjectCollection collection)
         {
             List<uint> xb_VIDPIDs = new List<uint>();
 
@@ -227,7 +227,7 @@ namespace Riva.Input
             foreach (ManagementObject obj in collection)
             {
                 deviceID = (string)obj.GetPropertyValue("DeviceID");
-                if ( deviceID.Contains(XBoxControllerDeviceIDMarker) )
+                if ( deviceID.Contains(XInputDeviceIDMarker) )
                 {
                     xb_VIDPIDs.Add( Get_VID_PID(deviceID) );
                 }
@@ -247,7 +247,7 @@ namespace Riva.Input
         /// string representation of 8 digits hexa number 
         /// that matches first 4 bytes of that device's DirectInput ProductGuid.
         /// </returns>
-        public static string[] GetAllXBoxControlersVIDPIDsFromPnPDevices_AsStrings(ManagementObjectCollection collection)
+        public static string[] GetAllXInputDevicesVIDPIDsFromPnPDevices_AsStrings(ManagementObjectCollection collection)
         {
             List<string> xb_VIDPIDs = new List<string>();
 
@@ -255,7 +255,7 @@ namespace Riva.Input
             foreach (ManagementObject obj in collection)
             {
                 deviceID = (string)obj.GetPropertyValue("DeviceID");
-                if ( deviceID.Contains(XBoxControllerDeviceIDMarker) )
+                if ( deviceID.Contains(XInputDeviceIDMarker) )
                 {
                     xb_VIDPIDs.Add( Get_PID_VID(deviceID) );
                 }
@@ -276,9 +276,9 @@ namespace Riva.Input
         /// For each XBox controller found returns: 
         /// Number that matches first 4 bytes of that device's DirectInput ProductGuid.
         /// </returns>
-        public static uint[] GetAllXBoxControlersVIDPIDsFromPnPDevices()
+        public static uint[] GetAllXInputDevicesVIDPIDsFromPnPDevices()
         {
-            return GetAllXBoxControlersVIDPIDsFromPnPDevices( GetAllPnPDevices() );
+            return GetAllXInputDevicesVIDPIDsFromPnPDevices( GetAllPnPDevices() );
         }
 
         /// <summary>
@@ -292,9 +292,9 @@ namespace Riva.Input
         /// string representation of 8 digits hexa number 
         /// that matches first 4 bytes of that device's DirectInput ProductGuid.
         /// </returns>
-        public static string[] GetAllXBoxControlersVIDPIDsFromPnPDevices_AsStrings()
+        public static string[] GetAllXInputDevicesVIDPIDsFromPnPDevices_AsStrings()
         {
-            return GetAllXBoxControlersVIDPIDsFromPnPDevices_AsStrings( GetAllPnPDevices() );
+            return GetAllXInputDevicesVIDPIDsFromPnPDevices_AsStrings( GetAllPnPDevices() );
         }
 
         #region    --- Testing
@@ -370,7 +370,7 @@ namespace Riva.Input
                     .Append("PNPDeviceID: ").AppendLine(pnpDeviceID)
                     .Append("Description: ").AppendLine(description);
 
-                if (deviceID.Contains(XBoxControllerDeviceIDMarker))
+                if (deviceID.Contains(XInputDeviceIDMarker))
                 {
                     xBoxControllersList.Add(
                         new PnPEntityInfo

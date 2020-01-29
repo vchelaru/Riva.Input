@@ -10,7 +10,7 @@ namespace GenericControllersTest
     /// <summary>Interaction logic for App.xaml</summary>
     public partial class App : Application
     {
-        private XBoxIdentifyWindow XBoxIdentifyWindow;
+        private XInputIdentifyWindow XBoxIdentifyWindow;
 
         private void AppStartup(object sender, StartupEventArgs e)
         {
@@ -18,11 +18,11 @@ namespace GenericControllersTest
 
             MainWindow =
                 new MainWindow();
-                //new XBoxIdentifyWindow();
+                //new XInputIdentifyWindow();
             MainWindow.Show();
 
-            //XBoxIdentifyWindow = new XBoxIdentifyWindow();
-            //XBoxIdentifyWindow.Show();
+            //XInputIdentifyWindow = new XInputIdentifyWindow();
+            //XInputIdentifyWindow.Show();
         }
     }
 }

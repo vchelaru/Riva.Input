@@ -98,8 +98,8 @@
     <Compile Include="ControlersListAndTest\ThumbStickGaugeUC.xaml.cs">
       <DependentUpon>ThumbStickGaugeUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XBoxIdentifyWindow.xaml.cs">
-      <DependentUpon>XBoxIdentifyWindow.xaml</DependentUpon>
+    <Compile Include="XInputIdentifyWindow.xaml.cs">
+      <DependentUpon>XInputIdentifyWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XBoxIdentify\GUI\DeviceInfosDTSelector.cs" />
@@ -131,7 +131,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XBoxIdentifyWindow.xaml">
+    <Page Include="XInputIdentifyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
