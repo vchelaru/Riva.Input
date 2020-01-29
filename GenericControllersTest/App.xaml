@@ -1,0 +1,20 @@
+﻿<Application x:Class="GenericControllersTest.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             
+             xmlns:rCmnCtrls="clr-namespace:RCommon.Controls;assembly=RCommon"
+             
+             xmlns:local="clr-namespace:GenericControllersTest"
+             
+             Startup="AppStartup">
+    <Application.Resources>
+
+        <SolidColorBrush x:Key="PitchGray" Color="#FF363636"/>
+        <SolidColorBrush x:Key="GreenGray" Color="#FF3A4622"/>
+
+        <Thickness x:Key="indent1Margin">20,6,0,0</Thickness>
+        <Thickness x:Key="indent2Margin">40,0,0,0</Thickness>
+
+        <rCmnCtrls:RBoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Application.Resources>
+</Application>

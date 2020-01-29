@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="GenericControllersTest.ThumbStickGaugeUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GenericControllersTest"
+             mc:Ignorable="d" 
+             Width="230" Height="295">
+    <DockPanel>
+        <TextBlock Name="Label" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Label]" />
+
+        <TextBlock Name="Vector" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Vector]" Margin="6" />
+
+        <TextBlock Name="VectorRaw" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Raw Vector]" />
+
+        <Canvas DockPanel.Dock="Top" Margin="15,30,15,15">
+            <!--<Ellipse Width="200" Height="200" Stroke="White" />-->
+            <Rectangle Width="200" Height="200" Stroke="White" />
+
+            <Line Name="Line" X1="100" Y1="100"         X2="100" Y2="100"         Stroke="White" />
+            <Ellipse Name="Thumb" Width="30" Height="30" Stroke="White" Margin="85,-15,0,0" />
+        </Canvas>
+    </DockPanel>
+</UserControl>

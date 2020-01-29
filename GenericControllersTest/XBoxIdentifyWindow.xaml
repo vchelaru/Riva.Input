@@ -1,0 +1,178 @@
+﻿<Window x:Class="GenericControllersTest.XBoxIdentifyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xBoxIdentify="clr-namespace:GenericControllersTest.XBoxIdentify"
+        
+        mc:Ignorable="d"
+        Title="XBox Devices Identify" Height="1000" Width="1600" Icon="XBox.ico"
+        TextBlock.FontSize="14">
+    <!--TextBlock.FontFamily="Consolas"-->
+    <Window.Resources>
+        <!--<Style x:Key="Style_Border_ItemContainer" TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Background" Value="Gray" />
+        </Style>-->
+        <Style x:Key="Style_Border_GroupContainer" TargetType="{x:Type Border}">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="Silver" />
+        </Style>
+        <Style x:Key="Style_RichTextBox_Item" TargetType="{x:Type RichTextBox}">
+            <Setter Property="Margin" Value="8,0,8,8" />
+            <Setter Property="Padding" Value="0,4" />
+            <Setter Property="Background" Value="Gray" />
+            <Setter Property="Border.CornerRadius" Value="3" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontSize" Value="14" />
+
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True" />
+        </Style>
+
+        <!--<local:PnPEntityInfo_To_RichText_Converter x:Key="PnPEntityInfo_To_RichText_Converter" />
+        <local:DIDeviceInfo_To_RichText_Converter x:Key="DIDeviceInfo_To_RichText_Converter" />-->
+        <xBoxIdentify:PnPEntityInfo_To_RichDoc_Converter x:Key="PnPEntityInfo_To_RichDoc_Converter" />
+        <xBoxIdentify:DIDeviceInfo_To_RichDoc_Converter x:Key="DIDeviceInfo_To_RichDoc_Converter" />
+        
+        <DataTemplate DataType="{x:Type xBoxIdentify:PnPEntityInfo}" x:Key="ItemPnPEntityInfo" >
+            <!--<Border Style="{StaticResource Style_Border_ItemContainer}">-->
+            <RichTextBox Style="{StaticResource Style_RichTextBox_Item}" Background="{Binding RTag}">
+                <RichTextBox.Tag>
+                    <MultiBinding Converter="{StaticResource PnPEntityInfo_To_RichDoc_Converter}">
+                        <!--<MultiBinding Converter="{StaticResource PnPEntityInfo_To_RichText_Converter}">-->
+                        <Binding Path="." />
+                        <Binding RelativeSource="{RelativeSource Self}" />
+                    </MultiBinding>
+                </RichTextBox.Tag>
+            </RichTextBox>
+            <!--</Border>-->
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type xBoxIdentify:DIDeviceInfo}" x:Key="ItemDIDeviceInfo" >
+            <!--<Border Style="{StaticResource Style_Border_ItemContainer}">-->
+            <RichTextBox Style="{StaticResource Style_RichTextBox_Item}" Background="{Binding RTag}">
+                <RichTextBox.Tag>
+                    <MultiBinding Converter="{StaticResource DIDeviceInfo_To_RichDoc_Converter}">
+                        <Binding Path="." />
+                        <Binding RelativeSource="{RelativeSource Self}" />
+                    </MultiBinding>
+                </RichTextBox.Tag>
+            </RichTextBox>
+            <!--</Border>-->
+        </DataTemplate>
+        
+        <xBoxIdentify:DeviceInfosDTSelector x:Key="DeviceInfosDTSelector"
+                                            DIDeviceInfoDT="{StaticResource ItemDIDeviceInfo}"
+                                            PnPEntityInfoDT="{StaticResource ItemPnPEntityInfo}" />
+        
+        <DataTemplate x:Key="GroupSingles" >
+            <!-- ItemsSource is List<IGrouping> 
+            Binding . is IGrouping -->
+            
+            <Border Style="{StaticResource Style_Border_GroupContainer}" >
+                <StackPanel>
+                    <TextBlock Text="{Binding Key, StringFormat='VID-PID: {0}'}" HorizontalAlignment="Center" />
+                    <ItemsControl ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource DeviceInfosDTSelector}">
+                        <!--<ItemsControl.ite>
+                            
+                        </ItemsControl.ite>-->
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MatchOFPairOfGroupsOfInfos" >
+            <!-- ItemsSource is List<Match> 
+            Binding . is Match -->
+            
+            <!-- Match -->
+            <Border Style="{StaticResource Style_Border_GroupContainer}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="3"
+                               Text="{Binding Item1.Key, StringFormat='Match on VID-PID: {0}'}" />
+
+                    <!-- IGrouping Item1 -->
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Item1}" ItemTemplate="{StaticResource ItemPnPEntityInfo}" />
+
+                    <!-- IGrouping Item2 -->
+                    <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Item2}" ItemTemplate="{StaticResource ItemDIDeviceInfo}" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="PnP devices" HorizontalAlignment="Center" Margin="10,0" />
+            <TextBlock Grid.Column="1" Text="DirectInput devices" HorizontalAlignment="Center" Margin="10,0" />
+        </Grid>
+        
+
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Name="TBlockMatches"
+                           Text="Devices identified as XBox controllers found both in PNP and DirectInput devices lists"
+                           Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+
+                <!-- List of Match (Item1, Item2) of Groups (Key) of infos -->
+                <ItemsControl Name="ItemsControlPairedDevices" Grid.Row="1" Grid.ColumnSpan="2"
+                              ItemTemplate="{StaticResource MatchOFPairOfGroupsOfInfos}" />
+
+                <TextBlock Name="TBlockUnpairedPnPDevices"
+                           Text="Devices identified as XBox controllers found in PNP but with no matching DirectInput device"
+                           Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                
+                <ItemsControl Name="ItemsControlUnpairedPnPDevices" Grid.Row="3" 
+                              ItemTemplate="{StaticResource GroupSingles}" />
+
+                <TextBlock Name="TBlockUnpairedDIDevices" 
+                           Text="Devices in DirectInput list not matching with any PNP device identified as XBox controller"
+                           Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                
+                <ItemsControl Name="ItemsControlUnpairedDIDevices" Grid.Row="5" Grid.Column="1" 
+                              ItemTemplate="{StaticResource GroupSingles}" />
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

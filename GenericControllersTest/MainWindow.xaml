@@ -1,0 +1,82 @@
+﻿<rcmn:RObservableWindow 
+        x:Class="GenericControllersTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        
+        xmlns:rcmn="clr-namespace:RCommon;assembly=RCommon"
+        xmlns:rInput="clr-namespace:Riva.Input;assembly=Riva.Input"
+        
+        xmlns:local="clr-namespace:GenericControllersTest"
+    
+        Title="Generic Controllers Test" Width="1000" Height="600" 
+        Background="{StaticResource PitchGray}" Foreground="White" Icon="ControllerIcon.ico" >
+    <!--xmlns:soopah="clr-namespace:Soopah.Xna.Input;assembly=Soopah.Xna.Input"-->
+    <Window.Resources>
+        <!--<DataTemplate x:Key="BottonIndicatorDT">
+            <Border Name="Border" BorderThickness="2" BorderBrush="White">
+                <TextBlock Name="TBlock" />
+            </Border>
+        </DataTemplate>-->
+    </Window.Resources>
+    
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" >
+            <TextBlock Text="No devices found" HorizontalAlignment="Center" Margin="10" />
+            
+            <ListBox Name="ListBoxDevices" Grid.RowSpan="99" 
+                 ItemsSource="{Binding Source={x:Static rInput:DirectInputManager.Devices}, Mode=OneWay}" Background="Transparent" 
+                 SelectionChanged="ListBoxDevices_SelectionChanged" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:GenericGamingDeviceUC Margin="2" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
+        <Grid DockPanel.Dock="Right" Margin="10">
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="32" />
+                
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                
+                <RowDefinition Height="Auto" />
+                <RowDefinition MinHeight="32" />
+            </Grid.RowDefinitions>
+
+            <!-- Buttons -->
+            <TextBlock Text="Buttons" HorizontalAlignment="Center" Margin="10,0,10,10" />
+            <WrapPanel Name="Stack_Buttons" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                
+            </WrapPanel>
+
+            
+            <!-- ThumbSticks -->
+            <TextBlock Text="ThumbSticks" Grid.Row="2" HorizontalAlignment="Center" Margin="10,10,10,0" />
+            <StackPanel Name="Stack_ThumbSticks" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top">
+                <local:ThumbStickGaugeUC x:Name="ThumbStickGauge_Left" Margin="10" />
+                <local:ThumbStickGaugeUC x:Name="ThumbStickGauge_Right" Margin="10" />
+                <local:ThumbStickGaugeUC x:Name="ThumbStickGauge_Third" Margin="10" />
+            </StackPanel>
+
+
+            <!-- DPads -->
+            <TextBlock Text="DPads" Grid.Row="4" HorizontalAlignment="Center" Margin="10,10,10,0" />
+            <StackPanel Name="Stack_DPads" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top">
+                
+            </StackPanel>
+
+        </Grid>
+    </DockPanel>
+</rcmn:RObservableWindow>
