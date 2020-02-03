@@ -79,7 +79,7 @@ namespace Riva.Input
         }
 
 
-        /// <summary>Get fresh info of all controlls on this gaming device.</summary>
+        /// <summary>Get fresh info of all controlls on this gaming device from DirectInput.</summary>
         public void Poll()
         {
             _DeviceState = RawDevice.CurrentJoystickState;

@@ -23,7 +23,7 @@ namespace Riva.Input
         /* ** Range conversion
             raw DX range float:         0  to  32 767.5  to  65 535
             +- range float:         -32767.5  to  0  to  32767.5
-            output unit range float:      -1  to  0  to  1
+            output range float:           -1  to  0  to  1
 
 
            ** Hor / Vert mapping
@@ -42,6 +42,10 @@ namespace Riva.Input
         // center 32767.5
         const float CENTER = 32767.5f;
 
+        const float VECTOR_RANGE1TO1_MAX_LENGTH = 1.4142135623730951f;
+        const float VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT = 0.014142135623730951f;
+
+        const float DEFAULT_DEADZONE_THRESHOLD = 0.3535f; // cca 25% of thumbstick range
 
         public readonly DirectInputDevice ParentDevice;
 
@@ -84,22 +88,22 @@ namespace Riva.Input
         public Vector2[] RawPositions { get { return _RawPositions; } }
 #endif
 
-        // 2 = 100%     0.2 = 10%       0.02 = 1%
-        protected float _DeadzoneLeft = 0.4f;       // 0.25f;
+        // 1 = 100%     0.1 = 10%       0.01 = 1%
+        protected float _DeadzoneLeftThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
 
-        protected float _DeadzoneRight = 0.4f;
+        protected float _DeadzoneRightThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
 
-        protected float _DeadzoneThird = 0.4f;
+        protected float _DeadzoneThirdThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
         
         /// <summary>In percent of half of stick range.
-        /// Default Deadzone 2%</summary>
-        public float DeadzoneForLeft { get { return _DeadzoneLeft * 50f; } }
+        /// Default Deadzone 25%</summary>
+        public float DeadzoneForLeft { get { return _DeadzoneLeftThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
         /// <summary>In percent of half of stick range.
-        /// Default Deadzone 2%</summary>
-        public float DeadzoneForRight { get { return _DeadzoneLeft * 50f; } }
+        /// Default Deadzone 25%</summary>
+        public float DeadzoneForRight { get { return _DeadzoneRightThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
         /// <summary>In percent of half of stick range.
-        /// Default Deadzone 2%</summary>
-        public float DeadzoneForThird { get { return _DeadzoneLeft * 50f; } }
+        /// Default Deadzone 25%</summary>
+        public float DeadzoneForThird { get { return _DeadzoneThirdThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
 
 
 
@@ -148,21 +152,21 @@ namespace Riva.Input
                 //_Positions[0].X = _ConvertRange(ParentDevice.DeviceState.X, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
                 //_Positions[0].Y = -_ConvertRange(ParentDevice.DeviceState.Y, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
 
-                _Positions[0] = _ConvertRange(ParentDevice.DeviceState.X, ParentDevice.DeviceState.Y, _DeadzoneLeft, true);
+                _Positions[0] = _ConvertRange(ParentDevice.DeviceState.X, ParentDevice.DeviceState.Y, _DeadzoneLeftThreshold_Range0to1_4, true);
 
 				if (NumberOfThumbSticks > 1) // Right
 				{
                     //_Positions[1].X = _ConvertRange(ParentDevice.DeviceState.Rz, ref _DeadzoneRight, ref _DeadzonePosRight);
                     //_Positions[1].Y = -_ConvertRange(ParentDevice.DeviceState.Z, ref _DeadzoneRight, ref _DeadzonePosRight);
 
-                    _Positions[1] = _ConvertRange(ParentDevice.DeviceState.Rz, ParentDevice.DeviceState.Z, _DeadzoneRight);
+                    _Positions[1] = _ConvertRange(ParentDevice.DeviceState.Rz, ParentDevice.DeviceState.Z, _DeadzoneRightThreshold_Range0to1_4);
 
 					if (NumberOfThumbSticks > 2) // Third
 					{
                         //_Positions[2].X = _ConvertRange(ParentDevice.DeviceState.Rx, ref _DeadzoneThird, ref _DeadzonePosThird);
                         //_Positions[2].Y = -_ConvertRange(ParentDevice.DeviceState.Ry, ref _DeadzoneThird, ref _DeadzonePosThird);
 
-                        _Positions[2] = _ConvertRange(ParentDevice.DeviceState.Rx, ParentDevice.DeviceState.Ry, _DeadzoneThird);
+                        _Positions[2] = _ConvertRange(ParentDevice.DeviceState.Rx, ParentDevice.DeviceState.Ry, _DeadzoneThirdThreshold_Range0to1_4);
 					}
 				}
 			}
@@ -189,7 +193,7 @@ namespace Riva.Input
 
         //private float _Temp;
         //private void _ConvertRange(float rawXAxisValue, ref ushort deadzoneNeg, ref ushort deadzonePos)
-        private Vector2 _ConvertRange(float rawXAxisValue, float rawYAxisValue, float deadzone, bool writeDebug = false)
+        private Vector2 _ConvertRange(float rawXAxisValue, float rawYAxisValue, float deadzone_Range0to1, bool writeDebug = false)
         {
             /*_Temp = (rawAxisValue - CENTER) / CENTER;
 
@@ -202,7 +206,7 @@ namespace Riva.Input
 
             // ** true center 32767.5
 
-            /* v1: Bad implementation !
+            /* v1: Naive deadzone (per axis) - bad:
             if (rawAxisValue > deadzoneNeg && rawAxisValue < deadzonePos)
                 return 0f;
             else
@@ -212,7 +216,7 @@ namespace Riva.Input
             // Y -1 Top to 1 Bottom
 
             // v2: Radial Dead Zone - better:
-            Vector2 stickInputNormalized = new Vector2( 
+            Vector2 stickInput_RangeNeg1Pos1 = new Vector2( 
                     (rawXAxisValue - CENTER) / CENTER, 
                     -( (rawYAxisValue - CENTER) / CENTER )
                 );
@@ -224,36 +228,45 @@ namespace Riva.Input
             );
             if (length < deadzone)
 #else
-            if (stickInputNormalized.Length() < deadzone)
+            if (stickInput_RangeNeg1Pos1.Length() < deadzone_Range0to1)
 #endif
-                stickInputNormalized = Vector2.Zero;
+                stickInput_RangeNeg1Pos1 = Vector2.Zero;
+
+            /* v3: Scaled Radial Dead Zone - smooth transition from deadzone:
+            float deadzone = 0.25f;
+            Vector2 stickInput = new Vector2(Input.GetAxis(“Horizontal”), Input.GetAxis(“Vertical”));
+            if(stickInput.magnitude < deadzone)
+                stickInput = Vector2.zero;
+            else
+                stickInput = stickInput.normalized * ((stickInput.magnitude - deadzone) / (1 - deadzone));
+            */
 
             // X -1 Left to 1 Right
             // Y -1 Top to 1 Bottom
 
-            return stickInputNormalized;
+            return stickInput_RangeNeg1Pos1;
         }
 
         /// <summary>In percent of half of stick range.</summary>
         public void SetDeadzoneForAll(byte percent)
         {
-            var inUnits = percent / 50f;
-            _DeadzoneLeft = _DeadzoneRight = _DeadzoneThird = inUnits;
+            var inRange0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
+            _DeadzoneLeftThreshold_Range0to1_4 = _DeadzoneRightThreshold_Range0to1_4 = _DeadzoneThirdThreshold_Range0to1_4 = inRange0to1_4;
         }
         /// <summary>In percent of half of stick range.</summary>
         public void SetDeadzoneForLeft(byte percent)
         {
-            _DeadzoneLeft = percent / 50f;
+            _DeadzoneLeftThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
         }
         /// <summary>In percent of half of stick range.</summary>
         public void SetDeadzoneForRight(byte percent)
         {
-            _DeadzoneRight = percent / 50f;
+            _DeadzoneRightThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
         }
         /// <summary>In percent of half of stick range.</summary>
         public void SetDeadzoneForThird(byte percent)
         {
-            _DeadzoneThird = percent / 50f;
+            _DeadzoneThirdThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
         }
 	}
 }
