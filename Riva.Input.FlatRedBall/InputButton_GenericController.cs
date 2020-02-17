@@ -9,12 +9,12 @@ using Riva.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class InputButtonGenericController : IRPressableInput
+    public class InputButton_GenericController : IRPressableInput
     {
         // * GenericController Poll and Buttons Refresh are done by ControlsInputManager (once per frame)
 
         // --IPressableInput
-        public bool IsDown { get { return InputDevice.Buttons[ _ButtonNumber ] == XnaInput.ButtonState.Pressed; } }
+        public bool IsDown { get { return ParentDevice.Buttons[ _ButtonNumber ] == XnaInput.ButtonState.Pressed; } }
 
         public bool WasJustPressed { get { throw new NotSupportedException(); } }
 
@@ -25,21 +25,21 @@ namespace Riva.Input.FlatRedBall
         public int ButtonNumber { get { return _ButtonNumber; } }
 
         // For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.GenericController; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.DirectInputDevice; } }
         /*public Guid? DeviceID { get { return InputDevice.Guid; } }
         public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
 
         // -- Mine
-        public readonly DirectInputDevice InputDevice;
+        public readonly DirectInputGamepad ParentDevice;
 
 
         /*public InputButtonGenericController(DirectInputDevice inputDevice)
         {
             InputDevice = inputDevice;
         }*/
-        public InputButtonGenericController(DirectInputDevice inputDevice, int buttonNumber)
+        public InputButton_GenericController(DirectInputGamepad parentDevice, int buttonNumber)
         {
-            InputDevice = inputDevice;
+            ParentDevice = parentDevice;
             _ButtonNumber = buttonNumber;
         }
 

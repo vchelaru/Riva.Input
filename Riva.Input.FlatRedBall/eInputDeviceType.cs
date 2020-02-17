@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Riva.Input.FlatRedBall
 {
-    public enum eInputDeviceType : byte
+    public enum InputDeviceType : byte
     {
+        Unset = 0,
         Keyboard,
         Mouse,
-        GenericController,
-        XBoxController,
+        DirectInputDevice,
+        XInputDevice,
     }
 }

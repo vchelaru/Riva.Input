@@ -7,9 +7,9 @@ namespace Riva.Input
 {
     public class DirectInputManager
     {
-        protected static List<DirectInputDevice> _Devices;
+        protected static List<DirectInputGamepad> _Devices;
         /// <summary>List of currently connected HID devices of Microsoft.DirectX.DirectInput.DeviceType Gamepad and Joystick.</summary>
-		public static List<DirectInputDevice> Devices
+		public static List<DirectInputGamepad> Devices
 		{
 			get
 			{
@@ -40,7 +40,7 @@ namespace Riva.Input
         public static void ReloadDevices()
 		{
             if (_Devices == null)
-                _Devices = new List<DirectInputDevice>(16);
+                _Devices = new List<DirectInputGamepad>(16);
             else
                 _Devices.Clear();
 
@@ -78,7 +78,7 @@ namespace Riva.Input
                 {
                     var deviceInfo = group.First();
                     _Devices.Add(
-                        new DirectInputDevice(
+                        new DirectInputGamepad(
                             deviceInfo.DeviceInstance, 
                             deviceInfo.DeviceInstance.ProductName, 
                             deviceInfo.GamingDeviceType
@@ -91,7 +91,7 @@ namespace Riva.Input
                     foreach (var deviceInfo in group)
                     {
                         _Devices.Add(
-                            new DirectInputDevice(
+                            new DirectInputGamepad(
                                 deviceInfo.DeviceInstance,
                                 $"{deviceInfo.DeviceInstance.ProductName} [{i}]",
                                 deviceInfo.GamingDeviceType

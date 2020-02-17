@@ -14,7 +14,7 @@ namespace Riva.Input.FlatRedBall
             }
         }
 
-        public static void UpdateDirectInputDevice(DirectInputDevice device)
+        public static void UpdateDirectInputDevice(DirectInputGamepad device)
         {
             device.Poll();
             device.Buttons.Refresh();

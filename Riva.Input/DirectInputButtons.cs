@@ -29,42 +29,42 @@ namespace Riva.Input
 		public ButtonState RightStick;
 		*/
 
-        public DirectInputDevice ParentDevice;
+        public DirectInputGamepad ParentDevice;
 
 
-		protected ButtonState[] _ButtonStates;
-        public ButtonState[] ButtonStates { get { return _ButtonStates; } }
+		protected ButtonState[] _ButtonsStates;
+        public ButtonState[] ButtonsStates { get { return _ButtonsStates; } }
         
-        protected byte[] _RawButtonStates;
+        protected byte[] _RawButtonsStates;
 
         public ButtonState this[int index]    // Indexer declaration  
         {  
-            get { return _ButtonStates[index]; }
+            get { return _ButtonsStates[index]; }
         }
 
 
         protected int _NumberOfButtons;
         public int NumberOfButtons { get { return _NumberOfButtons; } }
-        public int Count  { get { return _NumberOfButtons; } }
+        public int Count { get { return _NumberOfButtons; } }
 
         
 
 
 
-		public DirectInputButtons(DirectInputDevice parentDevice)
+		public DirectInputButtons(DirectInputGamepad parentDevice)
 		{
             ParentDevice = parentDevice;
 
             _NumberOfButtons = ParentDevice.RawDevice.Caps.NumberButtons;
 
-            _ButtonStates = new ButtonState[_NumberOfButtons];
+            _ButtonsStates = new ButtonState[_NumberOfButtons];
 		}
 
 
 
         public void Refresh()
         {
-            _RawButtonStates = ParentDevice.DeviceState.GetButtons();
+            _RawButtonsStates = ParentDevice.RawDeviceState.GetButtons();
 
 			/*
 			X = (buttons[0] == 0 ? ButtonState.Released : ButtonState.Pressed);
@@ -81,7 +81,7 @@ namespace Riva.Input
 
 			for (int i = 0; i < _NumberOfButtons; i++)
 			{
-				_ButtonStates[i] = (_RawButtonStates[i] == 0 ? ButtonState.Released : ButtonState.Pressed);
+				_ButtonsStates[i] = (_RawButtonsStates[i] == 0 ? ButtonState.Released : ButtonState.Pressed);
 			}
         }
 
@@ -90,11 +90,18 @@ namespace Riva.Input
         public IEnumerator<ButtonState> GetEnumerator()
         {
             // wrong: (IEnumerator<ButtonState>)_ButtonStates.GetEnumerator();
-            return ((IEnumerable<ButtonState>)_ButtonStates).GetEnumerator();
+            return ((IEnumerable<ButtonState>)_ButtonsStates).GetEnumerator();
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _ButtonStates.GetEnumerator();
+            return _ButtonsStates.GetEnumerator();
+        }
+
+
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}{{ParentDevice: {ParentDevice.Name}}}";
         }
     }
 }

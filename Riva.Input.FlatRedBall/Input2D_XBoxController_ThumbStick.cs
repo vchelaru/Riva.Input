@@ -1,15 +1,17 @@
-﻿using FlatRedBall.Input;
+﻿//using FlatRedBall.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using FlatRedBall;
+using FRBInput = FlatRedBall.Input;
 
 using Riva.Input;
 
+
 namespace Riva.Input.FlatRedBall
 {
-    public class Input2DXBoxController_ThumbStickLeft : Input2DXBoxController_ThumbStickBase, IR2DInput
+    public class Input2D_XBoxController_ThumbStick : IR2DInput
     {
         // -- I2DInput
         public float Magnitude { get { return (float)ParentDevice.LeftStick.Magnitude; } }
@@ -25,27 +27,59 @@ namespace Riva.Input.FlatRedBall
         public float YVelocity { get { throw new NotSupportedException(); /*return 0f;*/ } }
 
         // - IR2DInput
+        public bool GotInput { get { return _GotInput; } }
+
+        public PlayerIndex? XNAPlayerIndex { get { return _XNAPlayerIndex; } }
+
         /// <summary>
         /// Range -1 to 1
         /// Is not normalized vector.
         /// </summary>
         public Vector2 Vector { get { return ParentDevice.LeftStick.Position; } }
 
+        // -- Mine
+        protected readonly PlayerIndex _XNAPlayerIndex;
+
+        public readonly FRBInput.Xbox360GamePad ParentDevice;
+
+        protected bool _GotInput;
+
+        //public readonly eThumbStick ThumbStickKind;
+
+        // - For Settings (serialization / deserialization)
+        public InputDeviceType DeviceType { get { return InputDeviceType.XInputDevice; } }
+        //public Guid? DeviceID { get { return null; } }
+        public readonly int ThumbStickIndex;
+        
 
 
-        public Input2DXBoxController_ThumbStickLeft(PlayerIndex xnaPlayerIndex) : base(xnaPlayerIndex, eThumbStick.Left) {}
+        public Input2D_XBoxController_ThumbStick(PlayerIndex xnaPlayerIndex, int thumbStickIndex)
+        {
+            _XNAPlayerIndex = xnaPlayerIndex;
+            ParentDevice = FRBInput.InputManager.Xbox360GamePads[(int)xnaPlayerIndex];
+
+            if (thumbStickIndex > 1)
+                throw new NotSupportedException("XBox controllers do not have more than 2 thumb sticks.");
+            ThumbStickIndex = thumbStickIndex;
+        }
 #if DEBUG
-        public Input2DXBoxController_ThumbStickLeft(PlayerIndex xnaPlayerIndex, bool onlyForDebug) 
-            : base(xnaPlayerIndex, eThumbStick.Left, onlyForDebug) { }
+        public Input2D_XBoxController_ThumbStick(PlayerIndex xnaPlayerIndex, int thumbStickIndex, bool onlyForDebug)
+        {
+            _XNAPlayerIndex = xnaPlayerIndex;
+
+            if (thumbStickIndex > 1)
+                throw new NotSupportedException("XBox controllers do not have more than 2 thumb sticks.");
+            ThumbStickIndex = thumbStickIndex;
+        }
 #endif
 
+        // --- Methods
         // - IR2DInput
-        public override void Refresh()
+        public void Refresh()
         {
             // Will be called by ControlsInputManager - so it's not called more than once per frame
             //InputDevice.Poll();
             //InputDevice.ThumbSticks.Refresh();
-
 
             /*if (_Facing.X != 0f || _Facing.Y != 0f) // is not Vector2.Zero
             {

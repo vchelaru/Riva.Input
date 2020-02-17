@@ -1,10 +1,12 @@
 //#define o // debug output
 
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Collections;
 
 // Debug
 #if DEBUG || o
-    using System.Diagnostics;
+using System.Diagnostics;
 #endif
 
 
@@ -18,7 +20,7 @@ namespace Riva.Input
     /// for example, Right.Y might be a jet-throttle and Right.X might be the rotational position of a steering wheel
     /// In other words, being in the list of Gamepads doesn't mean it looks anything like a Gamepad
     /// </remarks>
-    public class DirectInputThumbSticks
+    public class DirectInputThumbSticks : IEnumerable<Vector2>
 	{
         /* ** Range conversion
             raw DX range float:         0  to  32 767.5  to  65 535
@@ -47,7 +49,7 @@ namespace Riva.Input
 
         const float DEFAULT_DEADZONE_THRESHOLD = 0.3535f; // cca 25% of thumbstick range
 
-        public readonly DirectInputDevice ParentDevice;
+        public readonly DirectInputGamepad ParentDevice;
 
 
 		/// <summary>
@@ -83,10 +85,10 @@ namespace Riva.Input
             get { return _Positions[index]; }
         }
 
-#if DEBUG
+/*#if DEBUG
         protected Vector2[] _RawPositions;
         public Vector2[] RawPositions { get { return _RawPositions; } }
-#endif
+#endif*/
 
         // 1 = 100%     0.1 = 10%       0.01 = 1%
         protected float _DeadzoneLeftThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
@@ -108,7 +110,7 @@ namespace Riva.Input
 
 
 
-        public DirectInputThumbSticks(DirectInputDevice parentDevice)
+        public DirectInputThumbSticks(DirectInputGamepad parentDevice)
 		{
             ParentDevice = parentDevice;
 
@@ -118,9 +120,9 @@ namespace Riva.Input
 
             _Positions = new Vector2[NumberOfThumbSticks];
 
-#if DEBUG
+/*#if DEBUG
             _RawPositions = new Vector2[NumberOfThumbSticks];
-#endif
+#endif*/
 
             if (NumberOfThumbSticks > 0)
 			{
@@ -141,9 +143,6 @@ namespace Riva.Input
 
 
 
-
-
-
         public void Refresh()
         {
 #if !DEBUG || true
@@ -152,21 +151,21 @@ namespace Riva.Input
                 //_Positions[0].X = _ConvertRange(ParentDevice.DeviceState.X, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
                 //_Positions[0].Y = -_ConvertRange(ParentDevice.DeviceState.Y, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
 
-                _Positions[0] = _ConvertRange(ParentDevice.DeviceState.X, ParentDevice.DeviceState.Y, _DeadzoneLeftThreshold_Range0to1_4, true);
+                _Positions[0] = _ConvertRange(ParentDevice.RawDeviceState.X, ParentDevice.RawDeviceState.Y, _DeadzoneLeftThreshold_Range0to1_4, true);
 
 				if (NumberOfThumbSticks > 1) // Right
 				{
                     //_Positions[1].X = _ConvertRange(ParentDevice.DeviceState.Rz, ref _DeadzoneRight, ref _DeadzonePosRight);
                     //_Positions[1].Y = -_ConvertRange(ParentDevice.DeviceState.Z, ref _DeadzoneRight, ref _DeadzonePosRight);
 
-                    _Positions[1] = _ConvertRange(ParentDevice.DeviceState.Rz, ParentDevice.DeviceState.Z, _DeadzoneRightThreshold_Range0to1_4);
+                    _Positions[1] = _ConvertRange(ParentDevice.RawDeviceState.Rz, ParentDevice.RawDeviceState.Z, _DeadzoneRightThreshold_Range0to1_4);
 
 					if (NumberOfThumbSticks > 2) // Third
 					{
                         //_Positions[2].X = _ConvertRange(ParentDevice.DeviceState.Rx, ref _DeadzoneThird, ref _DeadzonePosThird);
                         //_Positions[2].Y = -_ConvertRange(ParentDevice.DeviceState.Ry, ref _DeadzoneThird, ref _DeadzonePosThird);
 
-                        _Positions[2] = _ConvertRange(ParentDevice.DeviceState.Rx, ParentDevice.DeviceState.Ry, _DeadzoneThirdThreshold_Range0to1_4);
+                        _Positions[2] = _ConvertRange(ParentDevice.RawDeviceState.Rx, ParentDevice.RawDeviceState.Ry, _DeadzoneThirdThreshold_Range0to1_4);
 					}
 				}
 			}
@@ -268,5 +267,21 @@ namespace Riva.Input
         {
             _DeadzoneThirdThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
         }
-	}
+
+
+        public IEnumerator<Vector2> GetEnumerator()
+        {
+            return ((IEnumerable<Vector2>)_Positions).GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _Positions.GetEnumerator();
+        }
+
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}{{ParentDevice: {ParentDevice.Name}}}";
+        }
+    }
 }

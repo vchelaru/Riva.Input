@@ -5,10 +5,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Riva.Input
 {
-    public class DirectInputDevice
+    /// <summary>
+    /// This class is made to translate generic data and info from managed DirectInput gaming device
+    /// to expected functionality of a Gamepad.
+    /// It is not made to encompass all different kinds of DirectInput gaming devices.
+    /// </summary>
+    public class DirectInputGamepad
     {
         //public DirectInputDevice(Guid gamepadInstanceGuid, string name, GamingDeviceType type)
-        public DirectInputDevice(DeviceInstance deviceInstance, string uniqueName, GamingDeviceType type)
+        public DirectInputGamepad(DeviceInstance deviceInstance, string uniqueName, GamingDeviceType type)
         {
             Name = uniqueName;
             //InstanceGuid = gamepadInstanceGuid;
@@ -59,19 +64,19 @@ namespace Riva.Input
         public readonly GamingDeviceType Type;
 
 
-        protected JoystickState _DeviceState;
-        public JoystickState DeviceState { get { return _DeviceState; } }
+        protected JoystickState _RawDeviceState;
+        public JoystickState RawDeviceState { get { return _RawDeviceState; } }
 
-        protected bool _DPadsStatesStale = true;
+        protected bool _RawDPadsStatesStale = true;
         protected int[] _RawDPadsStates;
         public int[] RawDPadsStates
         {
             get
             {
-                if (_DPadsStatesStale)
+                if (_RawDPadsStatesStale)
                 {
-                    _RawDPadsStates = _DeviceState.GetPointOfView();
-                    _DPadsStatesStale = false;
+                    _RawDPadsStates = _RawDeviceState.GetPointOfView();
+                    _RawDPadsStatesStale = false;
                 }
 
                 return _RawDPadsStates;
@@ -82,9 +87,9 @@ namespace Riva.Input
         /// <summary>Get fresh info of all controlls on this gaming device from DirectInput.</summary>
         public void Poll()
         {
-            _DeviceState = RawDevice.CurrentJoystickState;
+            _RawDeviceState = RawDevice.CurrentJoystickState;
 
-            _DPadsStatesStale = true;
+            _RawDPadsStatesStale = true;
         }
 
 
@@ -135,6 +140,11 @@ namespace Riva.Input
 				return sb.ToString();
 			}
 		}
-		#endregion
-	}
+        #endregion
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}{{{Name}}}";
+        }
+    }
 }

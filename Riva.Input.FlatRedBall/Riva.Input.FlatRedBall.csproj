@@ -64,19 +64,12 @@
   <ItemGroup>
     <Compile Include="eInputDeviceType.cs" />
     <Compile Include="eThumbStick.cs" />
-    <Compile Include="Input2DGenericController_ThumbStickBase.cs" />
-    <Compile Include="Input2DGenericController_ThumbStickLeft.cs" />
-    <Compile Include="Input2DGenericController_ThumbStickRight.cs" />
-    <Compile Include="Input2DGenericController_ThumbStickThird.cs" />
-    <Compile Include="Input2DKeyboard8Way.cs" />
-    <Compile Include="Input2DKeyboard8Way_DebugFixed.cs" />
-    <Compile Include="Input2DXBoxController_ThumbStickBase.cs" />
-    <Compile Include="Input2DXBoxController_ThumbStickLeft.cs" />
-    <Compile Include="Input2DXBoxController_ThumbStickRight.cs" />
-    <Compile Include="InputButtonGenericController.cs" />
-    <Compile Include="InputButtonGenericController_DebugFixed.cs" />
-    <Compile Include="InputButtonKeyboardKey.cs" />
-    <Compile Include="InputButtonXBoxController.cs" />
+    <Compile Include="Input2D_GenericController_ThumbStick.cs" />
+    <Compile Include="Input2D_Keyboard_8Way.cs" />
+    <Compile Include="Input2D_XBoxController_ThumbStick.cs" />
+    <Compile Include="InputButton_GenericController.cs" />
+    <Compile Include="InputButton_KeyboardKey.cs" />
+    <Compile Include="InputButton_XBoxController.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="IR2DInput.cs" />
     <Compile Include="IRPressableInput.cs" />

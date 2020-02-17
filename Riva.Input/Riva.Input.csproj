@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectInputButtons.cs" />
-    <Compile Include="DirectInputDevice.cs" />
+    <Compile Include="DirectInputGamepad.cs" />
     <Compile Include="DirectInputDPad.cs" />
     <Compile Include="DirectInputManager.cs" />
     <Compile Include="DirectInputThumbSticks.cs" />

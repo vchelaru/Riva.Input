@@ -7,7 +7,7 @@ namespace Riva.Input.FlatRedBall
     public interface IRPressableInput : IPressableInput // Object has to implement this AND FRB IPressableInput
     {
         // -- For Settings (serialization / deserialization)
-        eInputDeviceType DeviceType { get; }
+        InputDeviceType DeviceType { get; }
 
         /*/// <summary>
         /// Device GUID for Generic controllers.
@@ -22,5 +22,9 @@ namespace Riva.Input.FlatRedBall
         /// ID number of controler button or keyboard key
         /// </summary>
         int ButtonNumber { get; }
+
+
+        // -- For Settings & input functionality
+        // ? ParentDevice  { get; }
     }
 }

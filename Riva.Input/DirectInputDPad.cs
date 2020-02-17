@@ -13,13 +13,13 @@ namespace Riva.Input
 		protected ButtonState _Left;
         public ButtonState Left { get { return _Left; } }
 
-        public readonly DirectInputDevice ParentDevice;
+        public readonly DirectInputGamepad ParentDevice;
         public readonly int Index;
 
 
 
 
-        public DirectInputDPad(DirectInputDevice parentDevice, int index)
+        public DirectInputDPad(DirectInputGamepad parentDevice, int index)
 		{
             ParentDevice = parentDevice;
 
@@ -62,5 +62,11 @@ namespace Riva.Input
                     _Left = ButtonState.Released;
             }
 		}
-	}
+
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}{{ParentDevice: {ParentDevice.Name}}}";
+        }
+    }
 }

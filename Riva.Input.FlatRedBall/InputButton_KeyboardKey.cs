@@ -8,7 +8,7 @@ using FRBInput = FlatRedBall.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class InputButtonKeyboardKey : IRPressableInput
+    public class InputButton_KeyboardKey : IRPressableInput
     {
         // * GenericController Poll and Buttons Refresh are done by ControlsInputManager (once per frame)
 
@@ -28,24 +28,25 @@ namespace Riva.Input.FlatRedBall
         public Guid? DeviceID { get { return null; } }
         public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
 
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.Keyboard; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.Keyboard; } }
 
         
 
 
-        public InputButtonKeyboardKey(FRBInput.KeyReference keyReference)
+        public InputButton_KeyboardKey(FRBInput.KeyReference keyReference)
         {
             KeyReference = keyReference;
         }
-        public InputButtonKeyboardKey(Keys key)
+        public InputButton_KeyboardKey(Keys key)
         {
             KeyReference = FRBInput.InputManager.Keyboard.GetKey(key);
         }
-        public InputButtonKeyboardKey(Keys key, bool onlyForDebug)
+#if DEBUG
+        public InputButton_KeyboardKey(Keys key, bool onlyForDebug)
         {
             KeyReference = new FRBInput.KeyReference();
             KeyReference.Key = key;
         }
-
+#endif
     }
 }

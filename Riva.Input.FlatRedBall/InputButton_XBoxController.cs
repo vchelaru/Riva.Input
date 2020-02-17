@@ -9,7 +9,7 @@ using Riva.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class InputButtonXBoxController : IRPressableInput
+    public class InputButton_XBoxController : IRPressableInput
     {
         // * GenericController Poll and Buttons Refresh are done by ControlsInputManager (once per frame)
 
@@ -25,7 +25,7 @@ namespace Riva.Input.FlatRedBall
         public int ButtonNumber { get { return _ButtonNumber; } }
 
         // For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.XBoxController; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.XInputDevice; } }
         //public Guid? DeviceID { get { return null; } }
         //public PlayerIndex? XNAPlayerIndex { get { return _XNAPlayerIndex; } }
 
@@ -37,19 +37,20 @@ namespace Riva.Input.FlatRedBall
         {
 
         }*/
-        public InputButtonXBoxController(Xbox360GamePad inputDevice, /*PlayerIndex xnaPlayerIndex,*/ int buttonNumber)
+        public InputButton_XBoxController(Xbox360GamePad parentDevice, /*PlayerIndex xnaPlayerIndex,*/ int buttonNumber)
         {
             //_XNAPlayerIndex = xnaPlayerIndex;
 
-            _ButtonReference = inputDevice.GetButton((Xbox360GamePad.Button)buttonNumber);
+            _ButtonReference = parentDevice.GetButton((Xbox360GamePad.Button)buttonNumber);
             _ButtonNumber = buttonNumber;
         }
-
-        public InputButtonXBoxController(Xbox360GamePad inputDevice, int buttonNumber, bool onlyForDebug)
+#if DEBUG
+        public InputButton_XBoxController(Xbox360GamePad inputDevice, int buttonNumber, bool onlyForDebug)
         {
             //_XNAPlayerIndex = xnaPlayerIndex;
 
             _ButtonNumber = buttonNumber;
         }
+#endif
     }
 }

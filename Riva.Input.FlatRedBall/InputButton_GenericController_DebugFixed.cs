@@ -8,7 +8,7 @@ using Riva.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class InputButtonGenericController_DebugFixed : IPressableInput
+    public class InputButton_GenericController_DebugFixed : IPressableInput
     {
         // --IPressableInput
         public bool IsDown { get { return InputDevice.Buttons[2] == XnaInput.ButtonState.Pressed; } }
@@ -18,16 +18,16 @@ namespace Riva.Input.FlatRedBall
         public bool WasJustReleased { get { throw new NotSupportedException(); } }
 
         // -- Mine
-        public DirectInputDevice InputDevice;
+        public DirectInputGamepad InputDevice;
 
         // - For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.GenericController; } }
+        public eInputDeviceType DeviceType { get { return eInputDeviceType.DirectInputDevice; } }
         //public Guid? DeviceID { get { return InputDevice.Guid; } }
 
 
 
 
-        public InputButtonGenericController_DebugFixed(DirectInputDevice inputDevice)
+        public InputButton_GenericController_DebugFixed(DirectInputGamepad inputDevice)
         {
             InputDevice = inputDevice;
         }

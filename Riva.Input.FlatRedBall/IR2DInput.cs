@@ -10,7 +10,7 @@ namespace Riva.Input.FlatRedBall
         // -- For Settings (serialization / deserialization)
 
         // Device itentification data
-        eInputDeviceType DeviceType { get; }
+        InputDeviceType DeviceType { get; }
         /*/// <summary>
         /// Device GUID for Generic controllers.
         /// </summary>
@@ -29,6 +29,10 @@ namespace Riva.Input.FlatRedBall
 
         bool GotInput { get; }
 
-        void Poll();
+        void Refresh();
+
+        // -- For Settings & input functionality
+        // ? ParentDevice  { get; }
+
     }
 }

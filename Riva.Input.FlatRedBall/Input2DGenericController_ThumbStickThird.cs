@@ -16,20 +16,20 @@ namespace Riva.Input.FlatRedBall
 
 
 
-        public Input2DGenericController_ThumbStickThird(DirectInputDevice inputDevice) : base(inputDevice) {}
+        public Input2DGenericController_ThumbStickThird(DirectInputGamepad parentDevice) : base(parentDevice) {}
 
 
 
         // - IR2DInput
-        public override void Poll()
+        public override void Refresh()
         {
             // Will be called by ControlsInputManager - so it's not called more than once per frame
             //InputDevice.Poll();
             //InputDevice.ThumbSticks.Refresh();
 
-            _Facing = InputDevice.ThumbSticks.Third;
+            _Facing = ParentDevice.ThumbSticks.Third;
 
-            base.Poll();
+            base.Refresh();
         }
     }
 }

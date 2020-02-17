@@ -8,7 +8,7 @@ using FRBInput = FlatRedBall.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class Input2DKeyboard8Way_DebugFixed : IR2DInput
+    public class Input2D_Keyboard_8Way_DebugFixed : IR2DInput
     {
         // -- I2DInput
         public float Magnitude { get { return _Length; } }
@@ -45,7 +45,7 @@ namespace Riva.Input.FlatRedBall
 
         // --- Methods
         // - IR2DInput
-        public void Poll() // _CalculateVector()
+        public void Refresh() // _CalculateVector()
         {
             _Keyboard = FRBInput.InputManager.Keyboard;
 

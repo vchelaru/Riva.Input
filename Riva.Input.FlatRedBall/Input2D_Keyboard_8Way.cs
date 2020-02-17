@@ -9,7 +9,7 @@ using FRBInput = FlatRedBall.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public class Input2DKeyboard8Way : IR2DInput
+    public class Input2D_Keyboard_8Way : IR2DInput
     {
         // -- I2DInput
         public float Magnitude { get { return _Length; } }
@@ -70,7 +70,7 @@ namespace Riva.Input.FlatRedBall
         private float _Length;
 
         // - For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.Keyboard; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.Keyboard; } }
 
         /*public Guid? DeviceID { get { return null; } }
         public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
@@ -79,7 +79,7 @@ namespace Riva.Input.FlatRedBall
 
         // --- Methods
         // - IR2DInput
-        public void Poll() // _CalculateVector()
+        public void Refresh() // _CalculateVector()
         {
             _Keyboard = FRBInput.InputManager.Keyboard;
 
