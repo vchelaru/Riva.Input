@@ -33,10 +33,8 @@ namespace Riva.Input.FlatRedBall
         //protected readonly PlayerIndex _XNAPlayerIndex;
         protected readonly IPressableInput _ButtonReference;
 
-        /*public InputButtonXBoxController(Xbox360GamePad inputDevice)
-        {
 
-        }*/
+
         public InputButton_XBoxController(Xbox360GamePad parentDevice, /*PlayerIndex xnaPlayerIndex,*/ int buttonNumber)
         {
             //_XNAPlayerIndex = xnaPlayerIndex;
@@ -45,7 +43,7 @@ namespace Riva.Input.FlatRedBall
             _ButtonNumber = buttonNumber;
         }
 #if DEBUG
-        public InputButton_XBoxController(Xbox360GamePad inputDevice, int buttonNumber, bool onlyForDebug)
+        public InputButton_XBoxController(int buttonNumber, bool onlyForDebug)
         {
             //_XNAPlayerIndex = xnaPlayerIndex;
 

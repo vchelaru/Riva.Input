@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="eInputDeviceType.cs" />
+    <Compile Include="InputDeviceType.cs" />
     <Compile Include="eThumbStick.cs" />
     <Compile Include="Input2D_GenericController_ThumbStick.cs" />
     <Compile Include="Input2D_Keyboard_8Way.cs" />
