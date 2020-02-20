@@ -16,6 +16,9 @@ namespace GenericControllersTest
 {
     public partial class ThumbStickGaugeUC : UserControl
     {
+        public const float RatioX = 100f;    // between FRB I2DInput [-1..0..1] and gauge range [0..100..200]
+        public const float RatioY = -100f;   // between FRB I2DInput [1..0..-1] and gauge range [0..100..200]
+
         public ThumbStickGaugeUC()
         {
             InitializeComponent();

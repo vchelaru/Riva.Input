@@ -14,14 +14,18 @@ using System.Windows.Shapes;
 
 namespace GenericControllersTest
 {
-    /// <summary>
-    /// Interaction logic for ButtonIndicatorUC.xaml
-    /// </summary>
-    public partial class ButtonIndicatorUC : UserControl
+    
+
+    public partial class DPadGaugeUC : UserControl
     {
-        public ButtonIndicatorUC()
+        public const float RatioX = 50f;    // between FRB I2DInput [-1..0..1] and gauge range [0..50..100]
+        public const float RatioY = -50f;   // between FRB I2DInput [1..0..-1] and gauge range [0..50..100]
+
+        public DPadGaugeUC()
         {
             InitializeComponent();
         }
+
+
     }
 }

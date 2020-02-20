@@ -96,6 +96,9 @@
     <Compile Include="ControlersListAndTest\GenericGamingDeviceUC.xaml.cs">
       <DependentUpon>GenericGamingDeviceUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlersListAndTest\DPadGaugeUC.xaml.cs">
+      <DependentUpon>DPadGaugeUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControlersListAndTest\ThumbStickGaugeUC.xaml.cs">
       <DependentUpon>ThumbStickGaugeUC.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
     <Compile Include="XBoxIdentify\GUI\PnPEntityInfo_To_RichText_Converter.cs" />
     <Compile Include="XBoxIdentify\XBoxRecognition.cs" />
     <Page Include="ControlersListAndTest\GenericGamingDeviceUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ControlersListAndTest\DPadGaugeUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

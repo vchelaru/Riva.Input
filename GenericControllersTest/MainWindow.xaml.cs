@@ -49,12 +49,10 @@ namespace GenericControllersTest
 
         #region    -- GUI data
         //private DataTemplate _BottonIndicatorDT;
-        private Thickness _GUI_BottonIndicatorMargin = new Thickness(4);
-        private Thickness _GUI_BottonIndicatorBorderThickness = new Thickness(1);
 
         private List<Border> _GUI_BottonIndicators = new List<Border>(20);
 
-        private List<ThumbStickGaugeUC> _GUI_DPadsGauges = new List<ThumbStickGaugeUC>(3);
+        private List<DPadGaugeUC> _GUI_DPadsGauges = new List<DPadGaugeUC>(3);
         #endregion -- GUI data END
 
 
@@ -158,12 +156,7 @@ namespace GenericControllersTest
             buttons.Refresh();
 
             for (int i = 0; i < buttons.Count; i++)
-            {
-                if (buttons[i] == ButtonState.Pressed)
-                    _GUI_BottonIndicators[i].Background = Brushes.YellowGreen;
-                else
-                    _GUI_BottonIndicators[i].Background = Brushes.Transparent;
-            }
+                _UpdateButtonIndicator(_GUI_BottonIndicators[i], buttons[i]);
         }
 
         void _UpdateThumbSticks(DirectInputThumbSticks thumbSticks)
@@ -205,8 +198,6 @@ namespace GenericControllersTest
         //Size _WPFCoords;
         double _X;
         double _Y;
-        float ratioX = 100f;    // between FRB I2DInput [-1..0..1] and gauge range [0..100..200]
-        float ratioY = -100f;   // between FRB I2DInput [1..0..-1] and gauge range [0..100..200]
         void _UpdateThumbStick(
             Vector2 thumbStickVector, ThumbStickGaugeUC gauge
 #if DEBUG
@@ -226,15 +217,15 @@ namespace GenericControllersTest
             // Vector: 1,1 = top right
             // Line: 200,0 = top right
 
-            _X = Cmn.RangeConversion(-1, 0, ratioX, thumbStickVector.X);
-            _Y = Cmn.RangeConversion(1, 0, ratioY, thumbStickVector.Y);
+            _X = Cmn.RangeConversion(-1, 0, ThumbStickGaugeUC.RatioX, thumbStickVector.X);
+            _Y = Cmn.RangeConversion(1, 0, ThumbStickGaugeUC.RatioY, thumbStickVector.Y);
             gauge.Line.X2 = _X;
             gauge.Line.Y2 = _Y;
 
             gauge.Thumb.Margin = new Thickness(_X - 15d, _Y - 15d, 0d, 0d);
         }
 
-        void _UpdateDPad(DirectInputDPad dPad, ThumbStickGaugeUC gauge, int dPadIndex)
+        void _UpdateDPad(DirectInputDPad dPad, DPadGaugeUC gauge, int dPadIndex)
         {
             gauge.Vector.Text = dPad.Vector.ToStringF4();
             gauge.Lenght.Text = dPad.Vector.Length().ToString("F4");
@@ -243,14 +234,31 @@ namespace GenericControllersTest
                 //dPad.ParentDevice.RawDPadsStates[dPadIndex].ToString();
                 dPad.AngleRad.ToString();
 #endif
-            _X = Cmn.RangeConversion(-1, 0, ratioX, dPad.Vector.X);
-            _Y = Cmn.RangeConversion(1, 0, ratioY, dPad.Vector.Y);
+            _X = Cmn.RangeConversion(-1, 0, DPadGaugeUC.RatioX, dPad.Vector.X);
+            _Y = Cmn.RangeConversion(1, 0, DPadGaugeUC.RatioY, dPad.Vector.Y);
             gauge.Line.X2 = _X;
             gauge.Line.Y2 = _Y;
 
-            gauge.Thumb.Margin = new Thickness(_X - 15d, _Y - 15d, 0d, 0d);
+            gauge.Thumb.Margin = new Thickness(_X - 10d, _Y - 10d, 0d, 0d);
+
+            if (dPad.Up == ButtonState.Pressed)
+                gauge.ButtonUp.Background = Brushes.YellowGreen;
+            else
+                gauge.ButtonUp.Background = null;
+
+            _UpdateButtonIndicator(gauge.ButtonUp, dPad.Up);
+            _UpdateButtonIndicator(gauge.ButtonDown, dPad.Down);
+            _UpdateButtonIndicator(gauge.ButtonLeft, dPad.Left);
+            _UpdateButtonIndicator(gauge.ButtonRight, dPad.Right);
         }
 
+        void _UpdateButtonIndicator(Border indicatorControl, ButtonState buttonState)
+        {
+            if (buttonState == ButtonState.Pressed)
+                indicatorControl.Background = Brushes.YellowGreen;
+            else
+                indicatorControl.Background = null;
+        }
 
 
         #region    -- GUI
@@ -268,31 +276,11 @@ namespace GenericControllersTest
             Border newBorder;
             while (Stack_Buttons.Children.Count < buttonsCount)
             {
-                newBorder = _CreateBottonIndicator(index);
+                newBorder = Cmn.CreateBottonIndicator(index.ToString());
                 _GUI_BottonIndicators.Add(newBorder);
                 Stack_Buttons.Children.Add(newBorder);
                 index++;
             }
-        }
-
-        Border _CreateBottonIndicator(int index)
-        {
-            return new Border
-            {
-                BorderThickness = _GUI_BottonIndicatorBorderThickness,
-                BorderBrush = Brushes.White,
-                Margin = _GUI_BottonIndicatorMargin,
-                MinWidth = 24d,
-                MinHeight = 24d,
-
-                Child = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = index.ToString()
-                }
-            };
         }
 
         void _SetThumbStickGaugeControls(DirectInputThumbSticks thumbSticks)
@@ -313,10 +301,10 @@ namespace GenericControllersTest
             }
 
             index = Stack_DPads.Children.Count;
-            ThumbStickGaugeUC gaugeControl;
+            DPadGaugeUC gaugeControl;
             while (Stack_DPads.Children.Count < dPads.Length)
             {
-                gaugeControl = new ThumbStickGaugeUC();
+                gaugeControl = new DPadGaugeUC();
                 gaugeControl.Label.Text = index.ToString();
                 _GUI_DPadsGauges.Add(gaugeControl);
                 Stack_DPads.Children.Add(gaugeControl);

@@ -16,5 +16,16 @@
         <Thickness x:Key="indent2Margin">40,0,0,0</Thickness>
 
         <rCmnCtrls:RBoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Style TargetType="{x:Type Border}" x:Key="ButtonIndicator">
+            <!--BorderThickness="1" BorderBrush="White" MinWidth="24" MinHeight="24" HorizontalAlignment="Center" VerticalAlignment="Center"-->
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="MinWidth" Value="24" />
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
     </Application.Resources>
 </Application>

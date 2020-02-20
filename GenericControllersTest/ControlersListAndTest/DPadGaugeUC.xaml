@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="GenericControllersTest.ThumbStickGaugeUC"
+﻿<UserControl x:Class="GenericControllersTest.DPadGaugeUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -30,12 +30,19 @@
         <TextBlock Grid.Row="3" HorizontalAlignment="Right" Text="Lenght (DeadZoned): " Margin="0,6" />
         <TextBlock Name="Lenght" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Text="[Lenght]" Margin="0,6" />
 
-        <Canvas Grid.Row="4" Grid.ColumnSpan="2" Margin="15,30,15,15" HorizontalAlignment="Center" Width="200">
+        <Canvas Grid.Row="4" Margin="15,30,15,15" HorizontalAlignment="Center" Width="100" Height="100">
             <!--<Ellipse Width="200" Height="200" Stroke="White" />-->
-            <Rectangle Width="200" Height="200" Stroke="White" />
+            <Ellipse Width="100" Height="100" Stroke="White" />
 
-            <Line Name="Line" X1="100" Y1="100"         X2="100" Y2="100"         Stroke="White" />
-            <Ellipse Name="Thumb" Width="30" Height="30" Stroke="White" Margin="85,85,0,0" />
+            <Line Name="Line" X1="50" Y1="50"         X2="50" Y2="50"         Stroke="White" />
+            <Ellipse Name="Thumb" Width="20" Height="20" Stroke="White" Margin="40,40,0,0" />
         </Canvas>
+
+        <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="False" Width="100" Height="100">
+            <Border Name="ButtonUp" DockPanel.Dock="Top" Style="{StaticResource ButtonIndicator}" />
+            <Border Name="ButtonDown" DockPanel.Dock="Bottom" Style="{StaticResource ButtonIndicator}" />
+            <Border Name="ButtonLeft" DockPanel.Dock="Left" Style="{StaticResource ButtonIndicator}" />
+            <Border Name="ButtonRight" DockPanel.Dock="Right" Style="{StaticResource ButtonIndicator}" />
+        </DockPanel>
     </Grid>
 </UserControl>
