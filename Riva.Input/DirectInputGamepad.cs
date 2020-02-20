@@ -27,7 +27,7 @@ namespace Riva.Input
             // DPads
             int dPadsCount = RawDevice.Caps.NumberPointOfViews;
             DPads = new DirectInputDPad[dPadsCount];
-            for (int i = 0; i < dPadsCount; i++)
+            for (byte i = 0; i < dPadsCount; i++)
             {
                 DPads[i] = new DirectInputDPad(this, i);
             }
