@@ -32,7 +32,7 @@ namespace GenericControllersTest
 
         private void This_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DirectInputDevice gamingDevice = e.NewValue as DirectInputDevice;
+            DirectInputGamepad gamingDevice = e.NewValue as DirectInputGamepad;
             if (gamingDevice != null)
             {
                 TBlock_UniqueName.Text = gamingDevice.Name;
@@ -114,7 +114,7 @@ namespace GenericControllersTest
 
         private void ButtonGUIDToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            DirectInputDevice gamingDevice = DataContext as DirectInputDevice;
+            DirectInputGamepad gamingDevice = DataContext as DirectInputGamepad;
             if (gamingDevice != null)
                 Clipboard.SetText(gamingDevice.DeviceInfo.InstanceGuid.ToString());
             else

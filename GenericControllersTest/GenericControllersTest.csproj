@@ -91,6 +91,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cmn.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="ControlersListAndTest\GenericGamingDeviceUC.xaml.cs">
       <DependentUpon>GenericGamingDeviceUC.xaml</DependentUpon>

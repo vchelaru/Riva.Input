@@ -34,8 +34,8 @@ namespace GenericControllersTest
             set { SetField(ref _GamingDevices, value, "GamingDevices"); }
         }*/
 
-        private DirectInputDevice _SelectedDevice;
-        public DirectInputDevice SelectedDevice
+        private DirectInputGamepad _SelectedDevice;
+        public DirectInputGamepad SelectedDevice
         {
             get { return _SelectedDevice; }
             set { SetField(ref _SelectedDevice, value, "SelectedDevice"); }
@@ -53,6 +53,8 @@ namespace GenericControllersTest
         private Thickness _GUI_BottonIndicatorBorderThickness = new Thickness(1);
 
         private List<Border> _GUI_BottonIndicators = new List<Border>(20);
+
+        private List<ThumbStickGaugeUC> _GUI_DPadsGauges = new List<ThumbStickGaugeUC>(3);
         #endregion -- GUI data END
 
 
@@ -71,6 +73,7 @@ namespace GenericControllersTest
 
             Stack_Buttons.Visibility = Visibility.Hidden;
             Stack_ThumbSticks.Visibility = Visibility.Hidden;
+            Stack_DPads.Visibility = Visibility.Hidden;
 
             ThumbStickGauge_Left.Label.Text = "Left";
             ThumbStickGauge_Right.Label.Text = "Right";
@@ -123,6 +126,10 @@ namespace GenericControllersTest
 
                 Stack_ThumbSticks.Visibility = Visibility.Visible;
 
+                _SetDPadsGaugeControls(SelectedDevice.DPads);
+
+                Stack_DPads.Visibility = Visibility.Visible;
+
                 _PollTimer.Start();
 
                 //Cmn.Msg(
@@ -142,6 +149,8 @@ namespace GenericControllersTest
             _UpdateDeviceButtons(_SelectedDevice.Buttons);
             
             _UpdateThumbSticks(_SelectedDevice.ThumbSticks);
+
+            _UpdateDPads(_SelectedDevice.DPads);
         }
 
         void _UpdateDeviceButtons(DirectInputButtons buttons)
@@ -182,9 +191,22 @@ namespace GenericControllersTest
 #endif
         }
 
+        void _UpdateDPads(DirectInputDPad[] dPads)
+        {
+            DirectInputDPad dPad;
+            for (int i = 0; i < dPads.Length; i++)
+            {
+                dPad = dPads[i];
+                dPad.Refresh();
+                _UpdateDPad( dPad, _GUI_DPadsGauges[i], i );
+            }
+        }
+
         //Size _WPFCoords;
         double _X;
         double _Y;
+        float ratioX = 100f;    // between FRB I2DInput [-1..0..1] and gauge range [0..100..200]
+        float ratioY = -100f;   // between FRB I2DInput [1..0..-1] and gauge range [0..100..200]
         void _UpdateThumbStick(
             Vector2 thumbStickVector, ThumbStickGaugeUC gauge
 #if DEBUG
@@ -192,18 +214,37 @@ namespace GenericControllersTest
 #endif
         )
         {
-            gauge.Vector.Text = thumbStickVector.ToString();
+            gauge.Vector.Text = thumbStickVector.ToStringF4(); // F4
+            gauge.Lenght.Text = thumbStickVector.Length().ToString("F4");
 #if DEBUG
             gauge.VectorRaw.Text = thumbStickVectorRaw.ToString();
 #endif
-            /*ThumbStickGauge_Left.Line.X2 = // 0 Left to 200 Right
-                (thumbSticks.Left.X // normalized vector = -1 Left to 1 Right
-                + 1) // 0 to 2
-                * 100;*/
-            //thumbSticks.Left.Normalize();
+            // Vector: 0,0 = center
+            // Line: 100,100 = center
+            // Vector: -1,-1 = bottom left
+            // Line: 0,200 = bottom left
+            // Vector: 1,1 = top right
+            // Line: 200,0 = top right
 
-            _X = (thumbStickVector.X + 1f) * 100d;
-            _Y = (thumbStickVector.Y + 1f) * 100d;
+            _X = Cmn.RangeConversion(-1, 0, ratioX, thumbStickVector.X);
+            _Y = Cmn.RangeConversion(1, 0, ratioY, thumbStickVector.Y);
+            gauge.Line.X2 = _X;
+            gauge.Line.Y2 = _Y;
+
+            gauge.Thumb.Margin = new Thickness(_X - 15d, _Y - 15d, 0d, 0d);
+        }
+
+        void _UpdateDPad(DirectInputDPad dPad, ThumbStickGaugeUC gauge, int dPadIndex)
+        {
+            gauge.Vector.Text = dPad.Vector.ToStringF4();
+            gauge.Lenght.Text = dPad.Vector.Length().ToString("F4");
+#if DEBUG
+            gauge.VectorRaw.Text =
+                //dPad.ParentDevice.RawDPadsStates[dPadIndex].ToString();
+                dPad.AngleRad.ToString();
+#endif
+            _X = Cmn.RangeConversion(-1, 0, ratioX, dPad.Vector.X);
+            _Y = Cmn.RangeConversion(1, 0, ratioY, dPad.Vector.Y);
             gauge.Line.X2 = _X;
             gauge.Line.Y2 = _Y;
 
@@ -212,10 +253,7 @@ namespace GenericControllersTest
 
 
 
-
-
         #region    -- GUI
-
         void _CreateBottonIndicatorControls(int buttonsCount)
         {
             int index = Stack_Buttons.Children.Count - 1;
@@ -264,6 +302,27 @@ namespace GenericControllersTest
             ThumbStickGauge_Third.Visibility = Common.BoolToVisibility(thumbSticks.HasThird);
         }
 
+        void _SetDPadsGaugeControls(DirectInputDPad[] dPads)
+        {
+            int index = Stack_DPads.Children.Count - 1;
+            while (Stack_DPads.Children.Count > dPads.Length)
+            {
+                _GUI_DPadsGauges.RemoveAt(index);
+                Stack_DPads.Children.RemoveAt(index);
+                index--;
+            }
+
+            index = Stack_DPads.Children.Count;
+            ThumbStickGaugeUC gaugeControl;
+            while (Stack_DPads.Children.Count < dPads.Length)
+            {
+                gaugeControl = new ThumbStickGaugeUC();
+                gaugeControl.Label.Text = index.ToString();
+                _GUI_DPadsGauges.Add(gaugeControl);
+                Stack_DPads.Children.Add(gaugeControl);
+                index++;
+            }
+        }
         #endregion -- GUI END
 
 

@@ -5,20 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GenericControllersTest"
              mc:Ignorable="d" 
-             Width="230" Height="295">
-    <DockPanel>
-        <TextBlock Name="Label" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Label]" />
+             Width="300" Height="295" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <TextBlock Name="Vector" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Vector]" Margin="6" />
+        <TextBlock Name="Label" Grid.ColumnSpan="99" HorizontalAlignment="Center" Text="[Label]" />
 
-        <TextBlock Name="VectorRaw" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="[Raw Vector]" />
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="Vector (DeadZoned): " Margin="0,6" />
+        <TextBlock Name="Vector" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="[Vector]" Margin="0,6" />
 
-        <Canvas DockPanel.Dock="Top" Margin="15,30,15,15">
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" Text="DX Raw axii values: " />
+        <TextBlock Name="VectorRaw" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="[Raw Vector]" />
+
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" Text="Lenght (DeadZoned): " Margin="0,6" />
+        <TextBlock Name="Lenght" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Text="[Lenght]" Margin="0,6" />
+
+        <Canvas Grid.Row="4" Grid.ColumnSpan="2" Margin="15,30,15,15" HorizontalAlignment="Center" Width="200">
             <!--<Ellipse Width="200" Height="200" Stroke="White" />-->
             <Rectangle Width="200" Height="200" Stroke="White" />
 
-            <Line Name="Line" X1="100" Y1="100"         X2="100" Y2="100"         Stroke="White" />
+            <Line Name="Line" X1="100" Y1="100"         X2="10" Y2="10"         Stroke="White" />
             <Ellipse Name="Thumb" Width="30" Height="30" Stroke="White" Margin="85,-15,0,0" />
         </Canvas>
-    </DockPanel>
+    </Grid>
 </UserControl>

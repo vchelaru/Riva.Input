@@ -74,7 +74,9 @@
             <!-- DPads -->
             <TextBlock Text="DPads" Grid.Row="4" HorizontalAlignment="Center" Margin="10,10,10,0" />
             <StackPanel Name="Stack_DPads" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top">
-                
+                <!--<local:ThumbStickGaugeUC x:Name="DPadGauge_1" Margin="10" />
+                <local:ThumbStickGaugeUC x:Name="DPadGauge_2" Margin="10" />
+                <local:ThumbStickGaugeUC x:Name="DPadGauge_3" Margin="10" />-->
             </StackPanel>
 
         </Grid>
