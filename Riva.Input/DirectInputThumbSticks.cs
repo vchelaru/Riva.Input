@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 // Debug
 #if DEBUG || o
@@ -13,12 +14,15 @@ using System.Diagnostics;
 namespace Riva.Input
 {
     /// <summary>
-    /// A struct offering the current positions of as many as 3 thumbsticks on a PC gamepad or joystick
+    /// A struct offering the current positions of as many as 3 thumbsticks on a PC gamepad or joystick.
     /// </summary>
     /// <remarks>
-    /// For unusual joysticks, these "thumbsticks" may be whatever the hardware-designer imagined;
-    /// for example, Right.Y might be a jet-throttle and Right.X might be the rotational position of a steering wheel
-    /// In other words, being in the list of Gamepads doesn't mean it looks anything like a Gamepad
+    /// I only know how to connect input variables from DX to 3 (actually reliably 2) ThumbSticks. 
+    /// So only 3 ThumbSticks are supported in this class.
+    /// </br></br>
+    /// For unusual joysticks, these "thumbsticks" may be whatever the hardware-designer imagined.
+    /// For example, Right.Y might be a jet-throttle and Right.X might be the rotational position of a steering wheel.
+    /// In other words, being in the list of Gamepads doesn't mean it looks anything like a Gamepad.
     /// </remarks>
     public class DirectInputThumbSticks : IEnumerable<Vector2>
 	{
@@ -36,8 +40,8 @@ namespace Riva.Input
 
            Y    Top         Bottom
                 0           65 535
-                -32767.5    32767.5
-                -1          1
+                32767.5    -32767.5
+                1          -1
         */
 
         // 65 536 = 0 to 65 535
@@ -54,19 +58,22 @@ namespace Riva.Input
 
 		/// <summary>
 		/// Check HasLeft, HasRight, etc before getting these values; will always be 0 if this gamepad lacks the requested thumbstick.
-        /// Range -1 to 1
+        /// Range -1 to 1.
+        /// -1 left, 1 right. -1 down, 1 up.
         /// Is not normalized vector !
 		/// </summary>
 		public Vector2 Left { get { return _Positions[0]; } }
         /// <summary>
 		/// Check HasLeft, HasRight, etc before getting these values; will always be 0 if this gamepad lacks the requested thumbstick.
         /// Range -1 to 1
+        /// -1 left, 1 right. -1 down, 1 up.
         /// Is not normalized vector !
 		/// </summary>
 		public Vector2 Right { get { return _Positions[1]; } }
         /// <summary>
 		/// Check HasLeft, HasRight, etc before getting these values; will always be 0 if this gamepad lacks the requested thumbstick.
-        /// Range -1 to 1
+        /// Range -1 to 1.
+        /// -1 left, 1 right. -1 down, 1 up.
         /// Is not normalized vector !
 		/// </summary>
 		public Vector2 Third { get { return _Positions[2]; } }
@@ -80,32 +87,28 @@ namespace Riva.Input
 
         protected Vector2[] _Positions;
 
-        public Vector2 this[int index]    // Indexer declaration  
+        public Vector2 this[byte index]    // Indexer declaration  
         {  
             get { return _Positions[index]; }
         }
 
-/*#if DEBUG
+#if DEBUG
         protected Vector2[] _RawPositions;
         public Vector2[] RawPositions { get { return _RawPositions; } }
-#endif*/
+#endif
 
         // 1 = 100%     0.1 = 10%       0.01 = 1%
-        protected float _DeadzoneLeftThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
-
-        protected float _DeadzoneRightThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
-
-        protected float _DeadzoneThirdThreshold_Range0to1_4 = DEFAULT_DEADZONE_THRESHOLD;
+        protected float[] _DeadzoneThresholds_Range0to1_4;
         
         /// <summary>In percent of half of stick range.
         /// Default Deadzone 25%</summary>
-        public float DeadzoneForLeft { get { return _DeadzoneLeftThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
+        public float DeadzoneForLeft { get { return _DeadzoneThresholds_Range0to1_4[0] / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
         /// <summary>In percent of half of stick range.
         /// Default Deadzone 25%</summary>
-        public float DeadzoneForRight { get { return _DeadzoneRightThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
+        public float DeadzoneForRight { get { return _DeadzoneThresholds_Range0to1_4[1] / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
         /// <summary>In percent of half of stick range.
         /// Default Deadzone 25%</summary>
-        public float DeadzoneForThird { get { return _DeadzoneThirdThreshold_Range0to1_4 / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
+        public float DeadzoneForThird { get { return _DeadzoneThresholds_Range0to1_4[2] / VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT; } }
 
 
 
@@ -114,15 +117,19 @@ namespace Riva.Input
 		{
             ParentDevice = parentDevice;
 
-            NumberOfThumbSticks = parentDevice.RawDevice.Caps.NumberAxes / 2;
+            NumberOfThumbSticks = Math.Min(parentDevice.RawDevice.Caps.NumberAxes / 2, 3);
 
             //Debug.WriteLine("_NumberOfThumbSticks: " + _NumberOfThumbSticks);
 
             _Positions = new Vector2[NumberOfThumbSticks];
 
-/*#if DEBUG
+#if DEBUG
             _RawPositions = new Vector2[NumberOfThumbSticks];
-#endif*/
+#endif
+
+            _DeadzoneThresholds_Range0to1_4 = new float[NumberOfThumbSticks];
+            for (int i = 0; i < NumberOfThumbSticks; i++)
+                _DeadzoneThresholds_Range0to1_4[i] = DEFAULT_DEADZONE_THRESHOLD;
 
             if (NumberOfThumbSticks > 0)
 			{
@@ -145,64 +152,52 @@ namespace Riva.Input
 
         public void Refresh()
         {
-#if !DEBUG || true
 			if (NumberOfThumbSticks > 0) // Left
 			{
                 //_Positions[0].X = _ConvertRange(ParentDevice.DeviceState.X, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
                 //_Positions[0].Y = -_ConvertRange(ParentDevice.DeviceState.Y, ref _DeadzoneNegLeft, ref _DeadzonePosLeft);
 
-                _Positions[0] = _ConvertRange(ParentDevice.RawDeviceState.X, ParentDevice.RawDeviceState.Y, _DeadzoneLeftThreshold_Range0to1_4, true);
+                _Positions[0] = _ConvertRange(ParentDevice.RawDeviceState.X, ParentDevice.RawDeviceState.Y, _DeadzoneThresholds_Range0to1_4[0]);
 
 				if (NumberOfThumbSticks > 1) // Right
 				{
                     //_Positions[1].X = _ConvertRange(ParentDevice.DeviceState.Rz, ref _DeadzoneRight, ref _DeadzonePosRight);
                     //_Positions[1].Y = -_ConvertRange(ParentDevice.DeviceState.Z, ref _DeadzoneRight, ref _DeadzonePosRight);
 
-                    _Positions[1] = _ConvertRange(ParentDevice.RawDeviceState.Rz, ParentDevice.RawDeviceState.Z, _DeadzoneRightThreshold_Range0to1_4);
+                    _Positions[1] = _ConvertRange(ParentDevice.RawDeviceState.Rz, ParentDevice.RawDeviceState.Z, _DeadzoneThresholds_Range0to1_4[1]);
 
 					if (NumberOfThumbSticks > 2) // Third
 					{
                         //_Positions[2].X = _ConvertRange(ParentDevice.DeviceState.Rx, ref _DeadzoneThird, ref _DeadzonePosThird);
                         //_Positions[2].Y = -_ConvertRange(ParentDevice.DeviceState.Ry, ref _DeadzoneThird, ref _DeadzonePosThird);
 
-                        _Positions[2] = _ConvertRange(ParentDevice.RawDeviceState.Rx, ParentDevice.RawDeviceState.Ry, _DeadzoneThirdThreshold_Range0to1_4);
+                        _Positions[2] = _ConvertRange(ParentDevice.RawDeviceState.Rx, ParentDevice.RawDeviceState.Ry, _DeadzoneThresholds_Range0to1_4[2]);
 					}
 				}
 			}
-#else
+#if DEBUG
             if (NumberOfThumbSticks > 0)
 			{
-                _RawPositions[0].X = ParentDevice.DeviceState.X;
-                _RawPositions[0].Y = ParentDevice.DeviceState.Y;
+                _RawPositions[0].X = ParentDevice.RawDeviceState.X;
+                _RawPositions[0].Y = ParentDevice.RawDeviceState.Y;
 
 				if (NumberOfThumbSticks > 1)
 				{
-                    _RawPositions[1].X = ParentDevice.DeviceState.Rz;
-                    _RawPositions[1].Y = ParentDevice.DeviceState.Z;
+                    _RawPositions[1].X = ParentDevice.RawDeviceState.Rz;
+                    _RawPositions[1].Y = ParentDevice.RawDeviceState.Z;
 
 					if (NumberOfThumbSticks > 2)
 					{
-                        _RawPositions[2].X = ParentDevice.DeviceState.Rx;
-                        _RawPositions[2].Y = ParentDevice.DeviceState.Ry;
+                        _RawPositions[2].X = ParentDevice.RawDeviceState.Rx;
+                        _RawPositions[2].Y = ParentDevice.RawDeviceState.Ry;
 					}
 				}
 			}
 #endif
         }
 
-        //private float _Temp;
-        //private void _ConvertRange(float rawXAxisValue, ref ushort deadzoneNeg, ref ushort deadzonePos)
         private Vector2 _ConvertRange(float rawXAxisValue, float rawYAxisValue, float deadzone_Range0to1, bool writeDebug = false)
         {
-            /*_Temp = (rawAxisValue - CENTER) / CENTER;
-
-            Debug.WriteLine("rawAxisValue: " + rawAxisValue + "\tConvert result: " + _Temp + "\tis lesser than -1 ? " + (_Temp < -1f));
-
-            if (_Temp < -1f)
-                return 0f;
-            else
-                return _Temp;*/
-
             // ** true center 32767.5
 
             /* v1: Naive deadzone (per axis) - bad:
@@ -211,8 +206,8 @@ namespace Riva.Input
             else
                 return (rawAxisValue - CENTER) / CENTER;*/
                 
-            // X -1 Left to 1 Right
-            // Y -1 Top to 1 Bottom
+            // X: -1 Left to 1 Right
+            // Y: 1 Top to -1 Bottom
 
             // v2: Radial Dead Zone - better:
             Vector2 stickInput_RangeNeg1Pos1 = new Vector2( 
@@ -229,7 +224,7 @@ namespace Riva.Input
 #else
             if (stickInput_RangeNeg1Pos1.Length() < deadzone_Range0to1)
 #endif
-                stickInput_RangeNeg1Pos1 = Vector2.Zero;
+                return Vector2.Zero;
 
             /* v3: Scaled Radial Dead Zone - smooth transition from deadzone:
             float deadzone = 0.25f;
@@ -241,31 +236,23 @@ namespace Riva.Input
             */
 
             // X -1 Left to 1 Right
-            // Y -1 Top to 1 Bottom
+            // Y 1 Top to -1 Bottom
 
             return stickInput_RangeNeg1Pos1;
         }
 
-        /// <summary>In percent of half of stick range.</summary>
+        /// <summary>In percent of half of stick range (radius).</summary>
         public void SetDeadzoneForAll(byte percent)
         {
             var inRange0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
-            _DeadzoneLeftThreshold_Range0to1_4 = _DeadzoneRightThreshold_Range0to1_4 = _DeadzoneThirdThreshold_Range0to1_4 = inRange0to1_4;
+            for (int i = 0; i < NumberOfThumbSticks; i++)
+                _DeadzoneThresholds_Range0to1_4[i] = inRange0to1_4;
         }
-        /// <summary>In percent of half of stick range.</summary>
-        public void SetDeadzoneForLeft(byte percent)
+        /// <summary>In percent of half of stick range (radius).</summary>
+        public void SetDeadzone(byte thumbStickIndex, byte percent)
         {
-            _DeadzoneLeftThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
-        }
-        /// <summary>In percent of half of stick range.</summary>
-        public void SetDeadzoneForRight(byte percent)
-        {
-            _DeadzoneRightThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
-        }
-        /// <summary>In percent of half of stick range.</summary>
-        public void SetDeadzoneForThird(byte percent)
-        {
-            _DeadzoneThirdThreshold_Range0to1_4 = MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
+            _DeadzoneThresholds_Range0to1_4[thumbStickIndex] = 
+                MathHelper.Clamp(percent * VECTOR_RANGE1TO1_LENGTH_FROM_PERCENT, 0f, VECTOR_RANGE1TO1_MAX_LENGTH);
         }
 
 
