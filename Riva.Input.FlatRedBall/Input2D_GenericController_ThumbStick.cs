@@ -47,9 +47,9 @@ namespace Riva.Input.FlatRedBall
         public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
 
         //public abstract eThumbStick ThumbStick { get; } 
-        public readonly int ThumbStickIndex;
+        public readonly byte ThumbStickIndex;
 
-        public Input2D_GenericController_ThumbStick(DirectInputGamepad parentDevice, int thumbStickIndex)
+        public Input2D_GenericController_ThumbStick(DirectInputGamepad parentDevice, byte thumbStickIndex)
         {
             ParentDevice = parentDevice;
             ThumbStickIndex = thumbStickIndex;
