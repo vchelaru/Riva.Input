@@ -5,7 +5,7 @@ using System;
 
 namespace Riva.Input.FlatRedBall
 {
-    public interface IR2DInput : I2DInput // Object has to implement this AND FRB I2DInput
+    public interface IR2DInput : I2DInput, INeedsRefreshInput // Object has to implement this AND FRB I2DInput
     {
         // -- For Settings (serialization / deserialization)
 
@@ -28,8 +28,6 @@ namespace Riva.Input.FlatRedBall
         Vector2 Vector { get; }
 
         bool GotInput { get; }
-
-        void Refresh();
 
         // -- For Settings & input functionality
         // ? ParentDevice  { get; }

@@ -30,8 +30,6 @@ namespace Riva.Input.FlatRedBall
 
         public InputDeviceType DeviceType { get { return InputDeviceType.Keyboard; } }
 
-        
-
 
         public InputButton_KeyboardKey(FRBInput.KeyReference keyReference)
         {
@@ -47,6 +45,8 @@ namespace Riva.Input.FlatRedBall
             KeyReference = new FRBInput.KeyReference();
             KeyReference.Key = key;
         }
+
+        public void Refresh() { }
 #endif
     }
 }

@@ -14,11 +14,20 @@ namespace Riva.Input.FlatRedBall
         // * GenericController Poll and Buttons Refresh are done by ControlsInputManager (once per frame)
 
         // --IPressableInput
-        public bool IsDown { get { return ParentDevice.Buttons[ _ButtonNumber ] == XnaInput.ButtonState.Pressed; } }
+        private bool _IsDown;
+        public bool IsDown { get { return _IsDown; } }
 
-        public bool WasJustPressed { get { throw new NotSupportedException(); } }
+        bool _WasJustPressed;
+        public bool WasJustPressed 
+        {
+            get { return _WasJustPressed; }
+        }
 
-        public bool WasJustReleased { get { throw new NotSupportedException(); } }
+        bool _WasJustReleased;
+        public bool WasJustReleased
+        {
+            get { return _WasJustReleased; }
+        }
 
         // -- IRPressableInput
         protected int _ButtonNumber;
@@ -26,12 +35,15 @@ namespace Riva.Input.FlatRedBall
 
         // For Settings (serialization / deserialization)
         public InputDeviceType DeviceType { get { return InputDeviceType.DirectInputDevice; } }
+
         /*public Guid? DeviceID { get { return InputDevice.Guid; } }
-        public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
+public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
 
         // -- Mine
         public readonly DirectInputGamepad ParentDevice;
 
+        private bool _WasLastTimeDown;
+        public bool WasLastTimeDown { get { return _WasLastTimeDown; } }
 
         /*public InputButtonGenericController(DirectInputDevice inputDevice)
         {
@@ -43,6 +55,13 @@ namespace Riva.Input.FlatRedBall
             _ButtonNumber = buttonNumber;
         }
 
+        public void Refresh()
+        {
+            _WasLastTimeDown = _IsDown;
+            _IsDown = ParentDevice.Buttons[_ButtonNumber] == XnaInput.ButtonState.Pressed;
 
+            _WasJustPressed = _WasLastTimeDown == false && IsDown;
+            _WasJustReleased = _WasLastTimeDown == true && IsDown == false;
+        }
     }
 }

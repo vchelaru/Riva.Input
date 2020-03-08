@@ -62,7 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INeedsRefreshInput.cs" />
     <Compile Include="Input2D_GenericController_DPad.cs" />
+    <Compile Include="Input2D_Keyboard_4Way.cs" />
     <Compile Include="InputDeviceType.cs" />
     <Compile Include="eThumbStick.cs" />
     <Compile Include="Input2D_GenericController_ThumbStick.cs" />

@@ -49,6 +49,8 @@ namespace Riva.Input.FlatRedBall
 
             _ButtonNumber = buttonNumber;
         }
+
+        public void Refresh() { }
 #endif
     }
 }

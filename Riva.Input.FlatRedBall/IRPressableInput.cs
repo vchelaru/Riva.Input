@@ -4,7 +4,7 @@ using FlatRedBall.Input;
 
 namespace Riva.Input.FlatRedBall
 {
-    public interface IRPressableInput : IPressableInput // Object has to implement this AND FRB IPressableInput
+    public interface IRPressableInput : IPressableInput, INeedsRefreshInput // Object has to implement this AND FRB IPressableInput
     {
         // -- For Settings (serialization / deserialization)
         InputDeviceType DeviceType { get; }
@@ -26,5 +26,8 @@ namespace Riva.Input.FlatRedBall
 
         // -- For Settings & input functionality
         // ? ParentDevice  { get; }
+
+        // -- For input functionality
+        //bool WasLastTimeDown { get; }
     }
 }
