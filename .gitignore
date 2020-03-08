@@ -241,3 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 _MiscWork_/
+
+# un-ignore wanted .pdb files
+!/References/**/*.pdb
