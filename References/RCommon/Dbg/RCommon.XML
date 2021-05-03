@@ -1,0 +1,1836 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RCommon</name>
+    </assembly>
+    <members>
+        <member name="M:System.RExtensions.Last``1(System.Collections.Generic.IList{``0})">
+            <summary>R: Returns last element in IList collection.</summary>
+            <typeparam name="T">Type the collection is holding.</typeparam>
+            <param name="collection"></param>
+            <returns>Returns last element in IList collection.</returns>
+            <exception cref="T:System.NotSupportedException">If collection contains zero elements.</exception>
+        </member>
+        <member name="M:System.RExtensions.Last(System.String)">
+            <summary>R: Returns last char in string.</summary>
+            <param name="str"></param>
+            <returns>Returns last char in string.</returns>
+            <exception cref="T:System.NotSupportedException">If string has zero length.</exception>
+        </member>
+        <member name="M:System.RExtensions.ToBool(System.Nullable{System.Boolean})">
+            <summary>R: Converts nullable bool to bool. Null is treated as false.</summary>
+            <returns>True if bool? has value and is true. False if bool? has value and is false or doesn't have value.</returns>
+        </member>
+        <member name="M:System.RExtensions.ToBool(System.Windows.MessageBoxResult)">
+            <summary>-R-</summary>
+        </member>
+        <member name="T:System.IO.Riva">
+            <summary>Riva's container class of IO Extensions.</summary>
+        </member>
+        <member name="M:System.IO.Riva.GetFiles(System.String,System.IO.SearchOption,System.String[])">
+            <summary>GetFiles(@"C:\Windows", SearchOption.TopDirectoryOnly, "*.exe", "*.dll");
+            <para>Returns SORTED names of files (including their paths) that match the specified
+            search pattern in the specified directory, using a value to determine whether
+            to search subdirectories.</para></summary>
+            <param name="path">The directory to search</param>
+            <param name="searchOption">One of the System.IO.SearchOption values that specifies whether the search
+            operation should include all subdirectories or only the current directory.</param>
+            <param name="searchPatterns">The separate search strings to match against the names of directories in path.
+            <para>Example: "a?.*" Search is not case sensitive.</para></param>
+            <returns>SORTED String array containing the names of files in the specified directory that
+            match the specified search pattern. File names include the full path.</returns>
+        </member>
+        <member name="M:System.IO.Riva.GetFilesList(System.String,System.IO.SearchOption,System.String[])">
+            <summary>GetFiles(@"C:\Windows", SearchOption.TopDirectoryOnly, "*.exe", "*.dll");
+            <para>Returns SORTED names of files (including their paths) that match the specified
+            search pattern in the specified directory, using a value to determine whether
+            to search subdirectories.</para>
+            <param name="path">The directory to search</param>
+            <param name="searchOption">One of the System.IO.SearchOption values that specifies whether the search
+            operation should include all subdirectories or only the current directory.</param>
+            <param name="searchPatterns">The separate search strings to match against the names of directories in path.
+            <para>Example: "a?.*" Search is not case sensitive.</para></param>
+            <returns>SORTED List[string] containing the names of files in the specified directory that
+            match the specified search pattern. File names include the full path.</returns>
+            </summary>
+        </member>
+        <member name="M:System.IO.Riva.EnumerateFiles(System.String,System.IO.SearchOption,System.String[])">
+            <summary>EnumerateFiles(@"C:\Windows", SearchOption.TopDirectoryOnly, "*.exe", "*.dll");
+            <para>Returns an enumerable collection of file names that match a search pattern
+            in a specified path, and optionally searches subdirectories.</para></summary>
+            <param name="path">The directory to search</param>
+            <param name="searchOption">One of the System.IO.SearchOption values that specifies whether the search
+            operation should include all subdirectories or only the current directory.</param>
+            <param name="searchPatterns">The separate search strings to match against the names of directories in path.
+            <para>Example: "a?.*" Search is not case sensitive.</para></param>
+            <returns>An enumerable collection of file names in the directory specified by path 
+            and that match searchPattern and searchOption.</returns>
+        </member>
+        <member name="M:System.IO.Riva.IsDirectoryEmpty(System.String)">
+            <summary></summary>
+            <param name="path">Can be \ terminated or not</param>
+            <returns>False if dir contains file(s) or another dir(s)</returns>
+        </member>
+        <member name="M:System.IO.Riva.IsDirectory(System.String)">
+            <summary>Returns whether file system item at path is a directory (and not a file).</summary>
+            <param name="path">Path and name of file system item (file or directory).</param>
+            <returns>Whether file system item at path is a directory (and not a file).</returns>
+        </member>
+        <member name="M:System.IO.Riva.IsFile(System.String)">
+            <summary>Returns whether file system item at path is a file (and not a directory).</summary>
+            <param name="path">Path and name of file system item (file or directory).</param>
+            <returns>Whether file system item at path is a file (and not a directory).</returns>
+        </member>
+        <member name="M:System.IO.Riva.TokenizePath(System.String)">
+            <summary>Works for file path or directory path</summary>
+            <param name="path"></param>
+            <returns>Array of parts of the path without the separation chars ( \ , / ). C:\aaa\bbb\ccc.ddd => [C:][aaa][bbb][ccc.ddd]</returns>
+        </member>
+        <member name="T:System.IO.Extensions">
+            <summary> Riva Extensions for IO. </summary>
+        </member>
+        <member name="M:System.IO.Extensions.IsEmpty(System.IO.DirectoryInfo)">
+            <summary>-R-</summary>
+            <returns>False if dir contains file(s) OR another dir(s)</returns>
+        </member>
+        <member name="M:System.IO.Extensions.HasFiles(System.IO.DirectoryInfo)">
+            <summary>-R-</summary>
+            <returns>False if dir contains file(s)</returns>
+        </member>
+        <member name="M:System.IO.Extensions.IsDirectory(System.IO.FileSystemInfo)">
+            <summary>-R-</summary>
+        </member>
+        <member name="M:System.IO.Extensions.IsFile(System.IO.FileSystemInfo)">
+            <summary>-R-</summary>
+        </member>
+        <member name="M:System.IO.Extensions.HELP(System.IO.FileInfo)">
+            <summary>
+            RExtension: FileInfo.FullName: Root\dir\dir\fileName.ext
+            <para>Name: fileName.ext</para>
+            <para>Extension: .ext</para></summary>
+        </member>
+        <member name="T:System.Windows.Media.Animation.GridLengthAnimation">
+            <summary>
+            Animates a grid length value just like the DoubleAnimation animates a double value
+            </summary>
+        </member>
+        <member name="P:System.Windows.Media.Animation.GridLengthAnimation.TargetPropertyType">
+            <summary>
+            Returns the type of object to animate
+            </summary>
+        </member>
+        <member name="M:System.Windows.Media.Animation.GridLengthAnimation.CreateInstanceCore">
+            <summary>
+            Creates an instance of the animation object
+            </summary>
+            <returns>Returns the instance of the GridLengthAnimation</returns>
+        </member>
+        <member name="F:System.Windows.Media.Animation.GridLengthAnimation.FromProperty">
+            <summary>
+            Dependency property for the From property
+            </summary>
+        </member>
+        <member name="P:System.Windows.Media.Animation.GridLengthAnimation.From">
+            <summary>
+            CLR Wrapper for the From depenendency property
+            </summary>
+        </member>
+        <member name="F:System.Windows.Media.Animation.GridLengthAnimation.ToProperty">
+            <summary>
+            Dependency property for the To property
+            </summary>
+        </member>
+        <member name="P:System.Windows.Media.Animation.GridLengthAnimation.To">
+            <summary>
+            CLR Wrapper for the To property
+            </summary>
+        </member>
+        <member name="M:System.Windows.Media.Animation.GridLengthAnimation.GetCurrentValue(System.Object,System.Object,System.Windows.Media.Animation.AnimationClock)">
+            <summary>
+            Animates the grid let set
+            </summary>
+            <param name="defaultOriginValue">The original value to animate</param>
+            <param name="defaultDestinationValue">The final value</param>
+            <param name="animationClock">The animation clock (timer)</param>
+            <returns>Returns the new grid length to set</returns>
+        </member>
+        <member name="M:System.Diagnostics.StopwatchExt.GetTimeString(System.Diagnostics.Stopwatch,System.Int32)">
+            <summary>-R-</summary>
+        </member>
+        <member name="T:RCommon.Cmn">
+            <summary>Static monster class with misc common useful functions.</summary>
+        </member>
+        <member name="F:RCommon.Cmn.SUPPORTED_BITMAP_FILEFORMATS_SEARCHPATTERNS">
+            <summary>string[] {"*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.ico"}</summary>
+        </member>
+        <member name="M:RCommon.Cmn.ListList(System.Collections.IEnumerable,System.Boolean)">
+            <summary>/// --Deprecated-- Use RCommon.Diag.ListList() --
+            R: Creates a string with listed items from Collection (List etc.)</summary>
+        </member>
+        <member name="P:RCommon.Cmn.DesignMode">
+            <summary>System.ComponentModel.DesignerProperties.IsInDesignModeProperty.GetMetadata( ...</summary>
+        </member>
+        <member name="M:RCommon.Cmn.GetIsInDesignMode">
+            <summary>System.ComponentModel.DesignerProperties.IsInDesignModeProperty.GetMetadata( ...</summary>
+        </member>
+        <member name="M:RCommon.Cmn.Msg(System.String,System.Boolean)">
+            <summary>R: Pop System.Windows.MessageBox with string str as message.
+            <para>Optionaly also copy the Msg string to Clipboard.</para></summary>
+        </member>
+        <member name="M:RCommon.Cmn.Msg(System.Object,System.Boolean)">
+            <summary>R: Pop System.Windows.MessageBox with string str as message.
+            <para>Optionaly also copy the Msg string to Clipboard.</para></summary>
+        </member>
+        <member name="M:RCommon.Cmn.MsgFormat(System.String,System.Object[])">
+            <summary>R: Pop System.Windows.MessageBox with message as formated string.</summary>
+        </member>
+        <member name="M:RCommon.Cmn.MsgFormatClipboard(System.String,System.Object[])">
+            <summary>R: Pop System.Windows.MessageBox with message as formated string,
+            <para>and also copy the Msg string to Clipboard.</para></summary>
+        </member>
+        <member name="M:RCommon.Cmn.BmpImgFromResources(System.String,System.Boolean)">
+            <summary>Returns image from (embedded) application resources as BitmapImage</summary>
+            <param name="projectFilepath">Path to image resource from project root</param>
+            <param name="freezeImage">If true, returns the BitmapImage Frozen.</param>
+        </member>
+        <member name="M:RCommon.Cmn.SaveImage(System.Windows.Media.Imaging.BitmapSource,System.String)">
+            <summary>R: Saves BitmapSource into a file (in app directory) or path, in PNG format.</summary>
+        </member>
+        <member name="M:RCommon.Cmn.BmpImgFromFile(System.String,System.UriKind,System.Boolean)">
+            <summary>R: To work with relative uri, image file must be 1. in app .exe folder or 
+            <para>2. included in project and marked as 'Content' and 'Copy Always'</para></summary>
+            <exception cref="T:System.NotSupportedException" >If file at path is not supported bitmap image file / format</exception>
+            <exception cref="T:System.UriFormatException" >If is filepath is wrong format or UriKind.Relative is set for absolute path and vice versa !</exception>
+        </member>
+        <member name="P:RCommon.Cmn.appDir">
+            <summary>R: Returns path to App directory.<para>(From System.AppDomain.CurrentDomain.BaseDirectory).</para><para>Path ends with \</para></summary>
+        </member>
+        <member name="P:RCommon.Cmn.IsShiftDown">
+            <summary>R: Returns whether ANY Shift key (Left or Right) is pressed.</summary>
+        </member>
+        <member name="P:RCommon.Cmn.IsCtrlDown">
+            <summary>R: Returns whether ANY Control key (Left or Right) is pressed.</summary>
+        </member>
+        <member name="P:RCommon.Cmn.IsAltDown">
+            <summary>R: Returns whether ANY Alt key (Left or Right) is pressed.</summary>
+        </member>
+        <member name="M:RCommon.Cmn.GCD(System.Int64,System.Int64)">
+            <summary>-- Deprecated -- Use RCommon.Mathx.GCD() --
+            find Greatest Common Divisor (GCD) of 2 integers
+            using Euclid algorithm; ignore sign
+            </summary>
+            <param name="Value1">Int64</param>
+            <param name="Value2">Int64</param>
+            <returns>Int64: GCD, positive</returns>
+        </member>
+        <member name="M:RCommon.Cmn.LCM(System.Int64,System.Int64)">
+            <summary>-- Deprecated -- Use RCommon.Mathx.LCM() --
+            Find Least common Multiply of 2 integers
+            using math formula: LCM(a,b)= a*(b/GCD(a,b));
+            </summary>
+            <param name="Value1">Int64</param>
+            <param name="Value2">Int64</param>
+            <returns>Int64</returns>
+        </member>
+        <member name="M:RCommon.Cmn.IsEven(System.Byte)">
+            <summary>-- Deprecated -- Use RCommon.Mathx.IsEven() --</summary>
+        </member>
+        <member name="M:RCommon.Cmn.IsEven(System.Int32)">
+            <summary>-- Deprecated -- Use RCommon.Mathx.IsEven() --</summary>
+        </member>
+        <member name="M:RCommon.Cmn.IsEven(System.Int64)">
+            <summary>-- Deprecated -- Use RCommon.Mathx.IsEven() --</summary>
+        </member>
+        <member name="M:RCommon.Cmn.CompareVersionStrings(System.String,System.String)">
+            <summary>-R- Finds if version1 is higher then version2 
+            on arbitrary lenght version string separated by ".". 
+            Eg: 0.10.3.4.546</summary>
+            <param name="version1"></param>
+            <param name="version2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RCommon.Cmn.LoadTextFileFromResources(System.String)">
+            <summary>-R-</summary>
+            <param name="uriPathToFile">Example: "/Logic/MyTextFile.txt"</param>
+            <returns>String that contains whole file's content.</returns>
+        </member>
+        <member name="M:RCommon.Cmn.RemoveDiacriticsMaybeFast(System.String)">
+            <summary>-R- Fast but dirty. Simple char replace from lookup table.</summary>
+        </member>
+        <member name="M:RCommon.Cmn.RemoveCzechDiacriticsFast(System.String)">
+            <summary>Replaces characters with czech diacritics with ASCII equivalents. 
+            Very fast. Uses RegEx.</summary>
+            <param name="original">Original string.</param>
+            <returns>New string with all special czech chars replaced by ASCII equivalents.</returns>
+        </member>
+        <member name="M:RCommon.Cmn.RemoveCzechDiacriticsAndToUpperFast(System.String)">
+            <summary>Replaces characters with czech diacritics with ASCII equivalents and coverts all chars to upper case.
+            Very fast. Uses RegEx.</summary>
+            <param name="original">Original string.</param>
+            <returns>New string with all special czech chars replaced by ASCII equivalents and all chars upper case.</returns>
+        </member>
+        <member name="M:RCommon.Cmn.CallUnaccessibleMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            -R- Lets you call non-accessible method of instance of some class. Uses reflection ! Not safe !
+            </summary>
+            <param name="instance">Instance of class that owns the method.</param>
+            <param name="methodName">Name of the non-accessible method in class.</param>
+            <param name="args">Arguments to pass to the method when invoked.</param>
+            <returns>Return value of called method or null, if method didn't exist in the instance.</returns>
+        </member>
+        <member name="M:RCommon.Cmn.GetValueOfUnaccessibleProperty(System.Object,System.String)">
+            <summary>-R-</summary>
+        </member>
+        <member name="M:RCommon.Mathx.GCD(System.Int64,System.Int64)">
+            <summary>
+            find Greatest Common Divisor (GCD) of 2 integers
+            using Euclid algorithm; ignore sign
+            </summary>
+            <param name="Value1">Int64</param>
+            <param name="Value2">Int64</param>
+            <returns>Int64: GCD, positive</returns>
+        </member>
+        <member name="M:RCommon.Mathx.LCM(System.Int64,System.Int64)">
+            <summary>
+            Find Least common Multiply of 2 integers
+            using math formula: LCM(a,b)= a*(b/GCD(a,b));
+            </summary>
+            <param name="Value1">Int64</param>
+            <param name="Value2">Int64</param>
+            <returns>Int64</returns>
+        </member>
+        <member name="M:RCommon.Mathx.RoundToMultipleOf(System.Int32,System.Int32)">
+            <summary>Rounds value to nearest multiple of number.</summary>
+            <param name="value">Number to round</param>
+            <param name="factor">Round to multiple of this</param>
+        </member>
+        <member name="M:RCommon.Mathx.RoundToMultipleOf(System.Double,System.Double)">
+            <summary>Rounds value to nearest multiple of number.</summary>
+            <param name="value">Number to round</param>
+            <param name="factor">Round to multiple of this</param>
+        </member>
+        <member name="M:RCommon.Mathx.IsDivisibleBy(System.Byte,System.Byte)">
+            <summary>
+            Je delenec delitelny bezezbytku delitelem ? (A % B == 0)
+            </summary>
+            <param name="delenec">V "A / B" je to A.</param>
+            <param name="delitel">V "A / B" je to B.</param>
+            <returns>True pokud je delenec delitelny bezezbytku delitelem. (A % B == 0)</returns>
+        </member>
+        <member name="M:RCommon.Mathx.IsDivisibleBy(System.Int32,System.Int32)">
+            <summary>
+            Je delenec delitelny bezezbytku delitelem ? (A % B == 0)
+            </summary>
+            <param name="delenec">V "A / B" je to A.</param>
+            <param name="delitel">V "A / B" je to B.</param>
+            <returns>True pokud je delenec delitelny bezezbytku delitelem. (A % B == 0)</returns>
+        </member>
+        <member name="M:RCommon.Mathx.IsDivisibleBy(System.Int64,System.Int64)">
+            <summary>
+            Je delenec delitelny bezezbytku delitelem ? (A % B == 0)
+            </summary>
+            <param name="delenec">V "A / B" je to A.</param>
+            <param name="delitel">V "A / B" je to B.</param>
+            <returns>True pokud je delenec delitelny bezezbytku delitelem. (A % B == 0)</returns>
+        </member>
+        <member name="M:RCommon.Mathx.RangeConversion(System.Single,System.Single,System.Single)">
+            <summary>
+            Converts between ranges that are [0 .. nRangeMax].
+            </summary>
+        </member>
+        <member name="M:RCommon.Mathx.RangeConversion(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts between ranges that are [0 .. nRangeMax].
+            </summary>
+        </member>
+        <member name="M:RCommon.Images.BmpImgFromResources(System.String,System.Boolean)">
+            <summary>Returns image from (embedded) application resources as BitmapImage</summary>
+            <param name="projectFilepath">Path to image resource from project root</param>
+            <param name="freezeImage">If true, returns the BitmapImage Frozen.</param>
+        </member>
+        <member name="M:RCommon.Images.SaveImage(System.Windows.Media.Imaging.BitmapSource,System.String)">
+            <summary>R: Saves BitmapSource into a file (in app directory) or path, in PNG format.</summary>
+        </member>
+        <member name="M:RCommon.Images.BmpImgFromFile(System.String,System.Boolean)">
+            <summary>R: To work with relative uri, image file must be 1. in app .exe folder or 
+            <para>2. included in project and marked as 'Content' and 'Copy Always'</para></summary>
+            <exception cref="T:System.NotSupportedException" >If file at path is not supported bitmap image file / format</exception>
+        </member>
+        <member name="M:RCommon.Images.BmpImgFromFileEx(System.String,System.Windows.Media.Imaging.BitmapCreateOptions,System.Boolean)">
+            <exception cref="T:System.NotSupportedException" >If file at path is not supported bitmap image file / format</exception>
+        </member>
+        <member name="M:RCommon.Images.ToBitmapSource(System.Drawing.Bitmap)">
+            <summary>
+            Converts from GDI / WinForms System.Drawing.Bitmap to WPF System.Windows.Media.Imaging.BitmapSource
+            </summary>
+            <exception cref="T:System.NotSupportedException">Convertion is not available</exception>
+        </member>
+        <member name="M:RCommon.Images.Convert(System.Drawing.Imaging.PixelFormat,System.Boolean@)">
+            <summary>
+            Converts from GDI / WinForms System.Drawing.Imaging.PixelFormat to WPF System.Windows.Media.PixelFormat
+            </summary>
+            <exception cref="T:System.NotSupportedException">Convertion is not available</exception>
+        </member>
+        <member name="M:RCommon.Images.Convert(System.Drawing.Imaging.PixelFormat)">
+            <summary>
+            Converts from GDI / WinForms System.Drawing.Imaging.PixelFormat to WPF System.Windows.Media.PixelFormat
+            </summary>
+            <exception cref="T:System.NotSupportedException">Convertion is not available</exception>
+        </member>
+        <member name="M:RCommon.Images.Convert(System.Windows.Media.PixelFormat,System.Boolean@)">
+            <summary>
+            Converts from WPF System.Windows.Media.PixelFormat to GDI / WinForms System.Drawing.Imaging.PixelFormat
+            </summary>
+            <exception cref="T:System.NotSupportedException">Convertion is not available</exception>
+        </member>
+        <member name="M:RCommon.Images.Convert(System.Windows.Media.PixelFormat)">
+            <summary>
+            Converts from WPF System.Windows.Media.PixelFormat to GDI / WinForms System.Drawing.Imaging.PixelFormat
+            </summary>
+            <exception cref="T:System.NotSupportedException">Convertion is not available</exception>
+        </member>
+        <member name="F:RCommon.CmnWPF.WPFWidthAuto">
+            <summary>Contains value same as Width / Height="Auto" in XAML.</summary>
+        </member>
+        <member name="M:RCommon.CmnWPF.ClosestColorHue(System.Collections.Generic.IList{System.Windows.Media.Color},System.Windows.Media.Color)">
+            <summary>Finds a closest Color to target Color in collection of colors, only based on Hue.</summary>
+            <param name="colors"></param>
+            <param name="target"></param>
+            <returns>Index of closest Color from colors collection.</returns>
+        </member>
+        <member name="M:RCommon.CmnWPF.HueDistance(System.Single,System.Single)">
+            <summary>Distance between two hues</summary>
+        </member>
+        <member name="M:RCommon.CmnWPF.ColorDiff(System.Windows.Media.Color,System.Windows.Media.Color)">
+            <summary>Distance of two Colors in RGB space.</summary>
+        </member>
+        <member name="M:RCommon.CmnWPF.CloneElement(System.Windows.UIElement)">
+            <summary>This is VERY inefficient method of cloning UI \ Framework Elements.</summary>
+        </member>
+        <member name="M:RCommon.CmnWPF.GetItemsControl_ItemsPanel(System.Windows.Controls.ItemsControl)">
+            <summary>
+            Get ItemsControl's "ItemsPanel" Panel instance.
+            <para>
+            Used to check if ItemsControl is virtualizing, 
+            by checking number of ItemsContainer's children 
+            (who are ItemsControl's items wrapped in ) .
+            </para>
+            </summary>
+            <param name="itemsControl"></param>
+            <returns>ItemsControl's "ItemsContainer" Panel, 
+            or null if there isn't any ItemsPresenter Control found in ItemsControl's tree.</returns>
+        </member>
+        <member name="T:RCommon.CollectionView.DisposableWithCallback">
+            <summary>
+            Fake Disposable object that only calls Action when disposed.
+            </summary>
+        </member>
+        <member name="T:RCommon.CollectionView.PregroupedCollectionView">
+            <summary>
+            CollectionView that takes pre-grouped data (eg grouped in DB) and presents them to consumer Control as any other CollectionView.<br/>
+            Does not group or re-group data by itself. If re-grouping is needed, or data change, 
+            new PregroupedCollectionView has to be created from new PregroupedCollectionViewGroups.
+            </summary>
+        </member>
+        <member name="M:RCommon.CollectionView.PregroupedCollectionView.RaiseCollectionReset">
+            <summary>
+            For some reason needed to be called after this View is bound to consumer Control, else the Control will not read data from the View.
+            </summary>
+        </member>
+        <member name="T:RCommon.CollectionView.PregroupedCollectionViewGroup">
+            <summary>
+            Structure that PregroupedCollectionView accepts as definition of grouped data hierarchy.
+            </summary>
+        </member>
+        <member name="P:RCommon.CollectionView.PregroupedCollectionViewGroup.IsBottomLevel">
+            <summary>
+            Contains items, or child groups ?
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.RAP">
+            <summary>Misc Attached Properties for FrameworkElements / Controls</summary>
+        </member>
+        <member name="F:RCommon.Controls.RAP.DebugProperty">
+            <summary>Pro oznaceni casti GUI, ktere jsou jen pro debug a je treba je smazat pro release</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.GetCornerRadius(System.Windows.DependencyObject)">
+            <summary>For passing CornerRadius inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.SetCornerRadius(System.Windows.DependencyObject,System.Windows.CornerRadius)">
+            <summary>For passing CornerRadius inside Style / Template</summary>
+        </member>
+        <member name="F:RCommon.Controls.RAP.CornerRadiusProperty">
+            <summary>For passing CornerRadius inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.GetSimpleCornerRadius(System.Windows.DependencyObject)">
+            <summary>For passing CornerRadius (as single double) inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.SetSimpleCornerRadius(System.Windows.DependencyObject,System.Double)">
+            <summary>For passing CornerRadius (as single double) inside Style / Template</summary>
+        </member>
+        <member name="F:RCommon.Controls.RAP.SimpleCornerRadiusProperty">
+            <summary>For passing CornerRadius (as single double) inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.GetBrush1(System.Windows.DependencyObject)">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.SetBrush1(System.Windows.DependencyObject,System.Drawing.Brush)">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="F:RCommon.Controls.RAP.Brush1Property">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.GetBrush2(System.Windows.DependencyObject)">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="M:RCommon.Controls.RAP.SetBrush2(System.Windows.DependencyObject,System.Drawing.Brush)">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="F:RCommon.Controls.RAP.Brush2Property">
+            <summary>For passing whatever styling color inside Style / Template</summary>
+        </member>
+        <member name="T:RCommon.Controls.Commands">
+            <summary>R: Contains generic commands not found in standard WPF command libraries.</summary>
+        </member>
+        <member name="F:RCommon.Controls.Commands.Enter">
+            <summary>Enter / Return Command. Bound to Enter Key KeyBinding out of box.</summary>
+        </member>
+        <member name="F:RCommon.Controls.Commands.Next">
+            <summary>Go to next item Command. Bound to Right arrow Key KeyBinding out of box.</summary>
+        </member>
+        <member name="F:RCommon.Controls.Commands.Previous">
+            <summary>Go to previous item Command. Bound to Left arrow Key KeyBinding out of box.</summary>
+        </member>
+        <member name="F:RCommon.Controls.Commands.Edit">
+            <summary>Start editing item Command.</summary>
+        </member>
+        <member name="T:RCommon.Controls.PropertyToRadioButtonsConverter">
+            <summary>
+            For use on IsChecked property of RadioButtons in a group.
+            Can bind any value, also enum value.
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.RFalseToHiddenConverter">
+            <summary>
+            Convert bool or bool?. true = Visible, false/null = Hidden
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.RBoolToVisibilityConverter">
+            <summary>
+            Convert bool or bool?. null = Hidden, true = Visible, false = Collapsed
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.TextBoxEnterKeyUpdateBehavior">
+            <summary>
+            Moves Focus from TextBox on Enter (Return)
+            
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.XAML_MissingRequiredNamedPartException">
+            <summary>Thrown when OnApplyTemplate() can't find required Named part in supplyed Template.</summary>
+        </member>
+        <member name="T:RCommon.Controls.XAML_ElementRequiredParamterException">
+            <summary>Thrown when some parameter of XAML Element (Control, ..) is not inside required range.</summary>
+        </member>
+        <member name="P:RCommon.Controls.MultiStateButton.MaxStates">
+            <summary>
+            Get or Set button's number of states.
+            CAN be lower or higher then actual number of Contents for States.
+            Minimum is 1. (Button always have to have at least it's one base state).
+            Default is 2 states.
+            </summary>
+        </member>
+        <member name="P:RCommon.Controls.MultiStateButton.State">
+            <summary>Get or Set button's - zero based index - of current state. State can't be set higher then MaxStates-1 or lower then 0.
+            Default State is 0.</summary>
+        </member>
+        <member name="P:RCommon.Controls.MultiStateButton.StatesContent">
+            <summary>
+            List of objects that define Contents for different States. Content is assigned to State index in order it is added to the list.
+            <para>ICollection methods .Move() and .RemoveAt() ARE NOT SUPPORTED ! Do not use them !</para>
+            </summary>
+        </member>
+        <member name="M:RCommon.Controls.MultiStateButton.UIContentsContainerAddItem(System.Object,System.Boolean)">
+            <summary>
+            !!!! when calling UIContentsContainerAddItem() I have to be sure uiContentsContainer exists (is not null)
+            </summary>
+        </member>
+        <member name="M:RCommon.Controls.MultiStateButton.UIContentsContainerAddItems(System.Collections.IList)">
+            <summary>
+            !!!! when calling UIContentsContainerAddItems() I have to be sure uiContentsContainer exists (is not null)
+            </summary>
+        </member>
+        <member name="M:RCommon.Controls.MultiStateButton.SetField``1(``0@,``0,System.String,System.String)">
+            <param name="field">ref _MyProperty</param>
+            <param name="value">value</param>
+            <param name="propertyName">"MyProperty"</param>
+            <param name="fullPropertyName">string.Format("{0}.MyProperty", "MyParent")</param>
+            <returns>was property set</returns>
+        </member>
+        <member name="M:RCommon.Controls.MultiStateButton.SetField``1(``0@,``0,System.String)">
+            <param name="field">ref _MyProperty</param>
+            <param name="value">value</param>
+            <param name="propertyName">"MyProperty"</param>
+            <returns>was property set</returns>
+        </member>
+        <member name="T:RCommon.Controls.MultiStateButtonSimple">
+            <summary>
+            After creating MultiStateButton instance, at least set object[] StatesContent to array of object 
+            that will be used as contents for states !<br/>
+            If one of contents is BitmapImage, 
+            </summary>
+        </member>
+        <member name="T:RCommon.Controls.SearchTextBox">
+            <summary>
+            SearchTextBox have 3 modes: 
+            <para>  Instant starts search every time a new letter is typed into the box</para>
+            <para>  Instant with Delay starts search after delay after last change is made to text in the box</para>
+            <para>  Delayed starts search when user clicks search button</para>
+            <para>All modes start search instantly when user press Enter</para>
+            <para>SearchTextBox raises Search event even if TextBox is empty !</para>
+            </summary>
+        </member>
+        <member name="P:RCommon.Controls.SearchTextBox.SearchMode">
+            <summary>Instant mode: a timer trigger the Search event after the last character is entered. Timer because we don’t want every keystroke to raise the event.
+            <para>Delayed mode: event raised on ENTER or when the search icon is clicked.</para></summary>
+        </member>
+        <member name="M:RCommon.Controls.SearchTextBox.OnSearch">
+            <summary>Raises Search Event. If overriding, include base.OnSearch().</summary>
+        </member>
+        <member name="M:RCommon.Controls.SearchTextBox.OnTextCleared">
+            <summary>Raises TextCleared Event. If overriding, include base.OnTextCleared().</summary>
+        </member>
+        <member name="T:RCommon.RLogicalTreeHelper">
+            <summary>
+            <para>** LogicalTree is structure that contains nodes, that are FrameworkElements ("Controls") or any type (string, int ..). It does not contain insides of their Templates etc.</para>
+            <para>VisualTree is structure that contains all visual elements even inside Control Templates</para>
+            </summary>
+        </member>
+        <member name="M:RCommon.RLogicalTreeHelper.WalkDownLogicalTreeFromCurrent(System.Windows.DependencyObject)">
+            <summary>Returns collection of all nodes in LogicalTree, that is descending from current object.</summary>
+            <param name="current">A starting node in LogicalTree for search</param>
+        </member>
+        <member name="M:RCommon.RLogicalTreeHelper.WalkDownLogicalTree(System.Object)">
+            <summary>Returns collection of all nodes in LogicalTree, that is descending from current object. Including current.</summary>
+            <param name="current">A starting node in LogicalTree for search</param>
+        </member>
+        <member name="M:RCommon.RLogicalTreeHelper.WalkDownControlsTreeFromCurrent(System.Windows.FrameworkElement)">
+            <summary>Returns collection of FrameworkElement nodes in LogicalTree, that is descending from current FrameworkElement.</summary>
+            <param name="current">A starting FrameworkElement node in LogicalTree for search</param>
+        </member>
+        <member name="M:RCommon.RLogicalTreeHelper.WalkDownControlsTree(System.Windows.FrameworkElement)">
+            <summary>Returns collection of FrameworkElement nodes in LogicalTree, that is descending from current FrameworkElement. Including current.</summary>
+            <param name="current">A starting FrameworkElement node in LogicalTree for search</param>
+        </member>
+        <member name="M:RCommon.DateTools.IsDateLaterThan(System.DateTime,System.DateTime)">
+            <summary>Compares Year then Month then Day (only). If isBigger > isSmaller.</summary>
+            <returns>
+            True if isBigger is later than isSmaller. 
+            False if isBigger is eariler than isSmaller or both dates are same.
+            </returns>
+        </member>
+        <member name="M:RCommon.DateTools.IsDateSameOrLaterThan(System.DateTime,System.DateTime)">
+            <summary>Compares Year, Month, Day (only). If isLater >= isEariler.</summary>
+        </member>
+        <member name="M:RCommon.DateTools.AreSameDate(System.DateTime,System.DateTime)">
+            <summary>Compares (only) 1. Day then 2. Month then 3. Year. a == b</summary>
+        </member>
+        <member name="M:RCommon.DateTools.AreSameDate(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            If both are null (.HaveValue == false) returns true.
+            If both have value (.HaveVaule == true) Compares (only) Day, Month, Year. 
+            a == b
+            </summary>
+            <returns>
+            If both are null (.HaveValue == false) returns true.
+            If both have value (.HaveVaule == true) Compares (only) 1. Day then 2. Month then 3. Year. 
+            </returns>
+        </member>
+        <member name="M:RCommon.DateTools.LaterDate(System.DateTime,System.DateTime)">
+            <summary>
+            Returns the DateTime object that represents later date.
+            Or second DateTime object if both represent same date.
+            </summary>
+            <returns>
+            Returns the DateTime object that represents later date.
+            Or second DateTime object if both represent same date.
+            </returns>
+        </member>
+        <member name="M:RCommon.DateTools.EarlierDate(System.DateTime,System.DateTime)">
+            <summary>
+            Returns the DateTime object that represents earlier date.
+            Or first DateTime object if both represent same date.
+            </summary>
+            <returns>
+            Returns the DateTime object that represents earlier date.
+            Or first DateTime object if both represent same date.
+            </returns>
+        </member>
+        <member name="M:RCommon.DateTools.IDDateToCzString(System.Int32)">
+            <summary>den. mesic. rok</summary>
+            <returns>den. mesic. rok</returns>
+        </member>
+        <member name="F:RCommon.DateTools.TICKS_PER_DAY">
+            <summary>Number of Ticks in 24 hours.
+            864 000 000 000</summary>
+        </member>
+        <member name="F:RCommon.DateTools.TICKS_PER_WEEK">
+            <summary>Number of Ticks in a week.
+            (eg. from pondeli morning midnight 00:00:0000 to nedele evening midnight 23:59:9999).
+            6 048 000 000 000</summary>
+        </member>
+        <member name="M:RCommon.DateTools.DateTimeToWeekIndex(System.DateTime@)">
+            <summary>Converts DateTime to Index of week the date is in.</summary>
+            <returns>Index of week the DateTime date is in.</returns>
+        </member>
+        <member name="M:RCommon.DateTools.WeekIndex(System.DateTime)">
+            <summary>Converts DateTime to Index of week the date is in.</summary>
+            <returns>Index of week the DateTime date is in.</returns>
+        </member>
+        <member name="M:RCommon.DateTools.DateTimeToDateInfo(System.DateTime@,System.Int32@,RCommon.DenVtydnu@)">
+            <summary>Converts DateTime to Index of week the date is in, and den index.</summary>
+            <param name="dateTime">Source date.</param>
+            <param name="weeksID">Index of week the DateTime date (day) is in.</param>
+            <param name="denVtydnu">Den v tydnu index of the date (day).</param>
+        </member>
+        <member name="M:RCommon.DateTools.DateTimeToDateInfo(System.DateTime,System.Int32@,RCommon.DenVtydnu@)">
+            <summary>Converts DateTime to Index of week the date is in, and den index.</summary>
+            <param name="dateTime">Source date.</param>
+            <param name="weeksID">Index of week the DateTime date (day) is in.</param>
+            <param name="denVtydnu">Den v tydnu index of the date (day).</param>
+        </member>
+        <member name="M:RCommon.DateTools.DateTimeToDayIndex(System.DateTime@)">
+            <summary>
+            Converts DateTime to Index of day the date is in.
+            Index of day is index since date 0.0. 0000. So since AD.
+            </summary>
+            <returns>Index of day the DateTime date is in.</returns>
+        </member>
+        <member name="M:RCommon.DateTools.DayIndex(System.DateTime)">
+            <summary>
+            Converts DateTime to Index of day the date is in.
+            Index of day is index since date 0.0. 0000. So since AD.
+            </summary>
+            <returns>Index of day the DateTime date is in.</returns>
+        </member>
+        <member name="T:RCommon.DenVtydnu">
+            <summary>Zacina Pondelim = 1. Konci Nedeli = 7.</summary>
+        </member>
+        <member name="T:RCommon.DeprecatedException">
+            <summary>Thrown when OnApplyTemplate() can't find required Named part in supplyed Template.</summary>
+        </member>
+        <member name="T:RCommon.RObservableUserControl">
+            <summary>
+            Usage:
+            <para>c#: public partial class MyUserControl : RObservableUserControl</para>
+            <para>XAML:</para>
+            <para>&lt;RCommon:RObservableUserControl x:Class="MyProjectNamespace.MyUserControl"</para>
+            <para>xmlns:RCommon="clr-namespace:RCommon;assembly=RCommon"</para>
+            </summary>
+        </member>
+        <member name="T:RCommon.RObservableUserControlDbg">
+            <summary>
+            Usage:
+            <para>c#: public partial class MyUserControl : RObservableUserControl</para>
+            <para>XAML:</para>
+            <para>&lt;RCommon:RObservableUserControl x:Class="MyProjectNamespace.MyUserControl"</para>
+            <para>xmlns:RCommon="clr-namespace:RCommon;assembly=RCommon"</para>
+            </summary>
+        </member>
+        <member name="M:RCommon.RObservableUserControlDbg.SetFieldFake``1(``0,``0,System.String,System.String)">
+            <summary>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</summary>
+        </member>
+        <member name="M:RCommon.RObservableUserControlDbg.SetField``1(``0,``0,System.String,System.String)">
+            <summary>DEPRECATED. Will throw exception ! Use SetFieldFake() instead.
+            <para>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</para></summary>
+        </member>
+        <member name="T:RCommon.RObservableWindowDbg">
+            <summary>
+            Usage:
+            <para>c#: public partial class MyWindow : RObservableWindow</para>
+            <para>XAML:</para>
+            <para>&lt;RCommon:RObservableWindow x:Class="MyProjectNamespace.MyWindow"</para>
+            <para>xmlns:RCommon="clr-namespace:RCommon;assembly=RCommon"</para>
+            </summary>
+        </member>
+        <member name="M:RCommon.RObservableWindowDbg.SetFieldFake``1(``0,``0,System.String,System.String)">
+            <summary>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</summary>
+        </member>
+        <member name="M:RCommon.RObservableWindowDbg.SetField``1(``0,``0,System.String,System.String)">
+            <summary>DEPRECATED. Will throw exception ! Use SetFieldFake() instead.
+            <para>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</para></summary>
+        </member>
+        <member name="T:RCommon.Diag">
+            <summary>
+            Diagnostic / Testing / Debug tools
+            </summary>
+        </member>
+        <member name="M:RCommon.Diag.DumpSaveWPFControlStyleOrTemplate(System.Windows.Controls.Control,System.String,RCommon.Diag.eMsgMode)">
+            <summary>Tries to Saves WPF Style (including Template) to file
+            <para>calling first DumpSaveWPFControlStyle().</para>
+            <para>If it fails, it will call DumpSaveWPFControlTemplate().</para></summary>
+            <returns>True if at least one save function succed (Style or Template is not null)</returns>
+        </member>
+        <member name="M:RCommon.Diag.DumpSaveWPFControlStyle(System.Windows.Style,System.String,RCommon.Diag.eMsgMode)">
+            <summary>Saves WPF Style (including Template) to file</summary>
+            <param name="style"></param>
+            <param name="filePath"></param>
+            <param name="msgMode"></param>
+            <returns>True if Style was found (not null)</returns>
+        </member>
+        <member name="M:RCommon.Diag.DumpSaveWPFControlStyle(System.Windows.FrameworkElement,System.String,RCommon.Diag.eMsgMode)">
+            <summary>Saves WPF FrameworkElement's Style (including Template) to file</summary>
+        </member>
+        <member name="M:RCommon.Diag.DumpSaveWPFTemplate(System.Windows.FrameworkTemplate,System.String,RCommon.Diag.eMsgMode)">
+            <summary>Saves WPF Control's Template to file</summary>
+        </member>
+        <member name="M:RCommon.Diag.DumpSaveWPFControlTemplate(System.Windows.Controls.Control,System.String,RCommon.Diag.eMsgMode)">
+            <summary>Saves WPF Control's Template to file</summary>
+        </member>
+        <member name="M:RCommon.Diag.PrintException(System.Exception,System.Boolean)">
+            <summary>Makes formatted text block with indentation from exception including inner exceptions, info and data.</summary>
+            <returns>Formatted text block with indentation from exception including inner exceptions, info and data</returns>
+        </member>
+        <member name="M:RCommon.Diag.PrintCollectionToString``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Boolean,System.Int32)">
+            <summary>Just calls PrintCollection().ToString()</summary>
+        </member>
+        <member name="M:RCommon.Diag.PrintCollectionToString``1(System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Int32)">
+            <summary>Just calls PrintCollection().ToString() with .ToStringNullCheck() on each property.</summary>
+        </member>
+        <member name="M:RCommon.Diag.PrintArray``1(``0[])">
+            <summary>Creates string with content of array in format [A,B,C] using StringBuilder.</summary>
+            <returns>string with content of array in format "[0, 1, 2, ..]"</returns>
+        </member>
+        <member name="M:RCommon.Diag.ListList(System.Collections.IEnumerable,System.Boolean)">
+            <summary>R: Creates a string with listed items from Collection (List etc.)</summary>
+        </member>
+        <member name="M:RCommon.Diag.IsNull(System.Object)">
+            <summary></summary>
+            <param name="referenceTypeObject"></param>
+            <returns>Returns string "null" or "not null".</returns>
+        </member>
+        <member name="M:RCommon.Diag.ToStringNullCheck(System.Object)">
+            <summary>Returns object's ToString() or string "null".</summary>
+            <param name="referenceTypeObject"></param>
+            <returns>Returns object's ToString() or string "null".</returns>
+        </member>
+        <member name="M:RCommon.Diag.Count(System.Collections.IEnumerable)">
+            <summary>R: Only for debug purposes. May be slow. Iterates over whole IEnumerable.</summary>
+            <returns>Number of elements in IEnumerable.</returns>
+        </member>
+        <member name="P:RCommon.DPI.Screens">
+            <summary>R: Array of all current system Screens (Monitors). All sizes/positions in real Pixels 
+            (not WPF Points)</summary>
+        </member>
+        <member name="P:RCommon.DPI.ScreensPoints">
+            <summary>R: Twin Array of Screens, containing all Screens size/location parameters in WPF Points</summary>
+        </member>
+        <member name="P:RCommon.DPI.PxPtsTransforms">
+            <summary>
+            Contains pair of Transform Matrixes for trasforming between Pixels and WPF Points.
+            Automaticaly populated when connected member/method is used.
+            </summary>
+        </member>
+        <member name="M:RCommon.DPI.GetMainScreen(System.Windows.Window)">
+            <summary>R: Get screen the Window mainly belongs to = center point of Window lays there.
+            (Used for Window Maximisation)
+            Returns null if can't be determined.</summary>
+            <param name="w">Window</param>
+            <returns>System.Windows.Forms.Screen</returns>
+        </member>
+        <member name="M:RCommon.DPI.TryGetMainScreenIndex(System.Windows.Window)">
+            <summary>get index of screen (in arrays 'Screens' and 'ScreensPoints') the Window mainly belongs to
+            = center point of Window lays there. (Used for Window Maximisation)
+            Returns null if can't be determined.</summary>
+            <param name="w">Window</param>
+            <returns>index of screen in arrays 'Screens' and 'ScreensPoints'</returns>
+        </member>
+        <member name="M:RCommon.DPI.GetAllScreens_SizesInPoint(System.Windows.Media.Matrix)">
+            <summary>
+            Converts System.Windows.Forms.Screen.AllScreens[] to Array containing all size properties of 
+            Screens converted to WPF Points screen spaces</summary>
+            <param name="transformToPoints">PresentationSource.FromVisual(element).CompositionTarget.TransformFromDevice Matrix</param>
+            <returns>struct ScreenSizes_Points</returns>
+        </member>
+        <member name="M:RCommon.DPI.TryGetSystemDPI(System.Windows.Window,System.Boolean)">
+            <summary>Get system DPI using Window instance. Calls TryGetTransforms() inside.</summary>
+        </member>
+        <member name="M:RCommon.DPI.GetSystemDPI">
+            <summary>Get system DPI using Reflection</summary>
+        </member>
+        <member name="F:RCommon.DPI.sPxPtsTransforms.ToPixels">
+            <summary>"ToDevice". From WPF Points to Pixels</summary>
+        </member>
+        <member name="F:RCommon.DPI.sPxPtsTransforms.ToPoints">
+            <summary>"FromDevice". From Pixels to WPF Points</summary>
+        </member>
+        <member name="M:RCommon.DPI.TryGetTransforms(System.Windows.Window,System.Boolean)">
+            <summary>Try get Transforms from Window. 
+            <para>Window must be Loaded (IsLoaded == true) before calling this function. Othervise exception will be thrown.</para></summary>
+            <param name="element">Window to get the Transforms from.</param>
+            <param name="cacheResultTransforms">If true, returned Transforms will also be cached in RControls.DPI.PxPtsTransforms property.</param>
+        </member>
+        <member name="M:RCommon.DPI.GetTransforms(System.Boolean)">
+            <summary>Get and create Transforms using reflection</summary>
+        </member>
+        <member name="T:RCommon.Extensions.Common">
+            <summary>  Riva's common C# Exptensions </summary>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DecimalPlaces(System.Decimal)">
+            <summary>
+            RExtension: eturns number of decimal (fractional) places in Decimal
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DecimalPlaces(System.Double)">
+            <summary>
+            RExtension: Returns number of decimal (fractional) places in Double
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsB(System.Int32)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) integer.</summary>
+            <param name="arg">Positive or negative integer.</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsBP(System.Int32)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) [P]OSITIVE integer.</summary>
+            <param name="arg">POSITIVE integer</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsSP(System.Int32)">
+            <summary>RExtension: Fast count digits in [S]maller (&lt; 5 digits) [P]OSITIVE integer.</summary>
+            <param name="arg">POSITIVE integer</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsB(System.Int16)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) integer.</summary>
+            <param name="arg">Positive or negative integer.</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsBP(System.Int16)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) [P]OSITIVE integer.</summary>
+            <param name="arg">POSITIVE integer</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsSP(System.Int16)">
+            <summary>RExtension: Fast count digits in [S]maller (&lt; 5 digits) [P]OSITIVE integer.</summary>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsB(System.Int64)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) integer.</summary>
+            <param name="arg">Positive or negative integer.</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsBP(System.Int64)">
+            <summary>RExtension: Fast count digits in [B]igger (> 4 digits) [P]OSITIVE integer.</summary>
+            <param name="arg">POSITIVE integer</param>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.DigitsSP(System.Int64)">
+            <summary>RExtension: Fast count digits in [S]maller (&lt; 5 digits) [P]OSITIVE integer.</summary>
+            <returns>No of digits. (Počet číslic.)</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.IsFract(System.Single)">
+            <summary>
+            RExtension: Finds if number is fractional (has decimal places)
+            </summary>
+            <returns>bool</returns>        
+        </member>
+        <member name="M:RCommon.Extensions.Common.IsFract(System.Double)">
+            <summary>
+            RExtension: Finds if number is fractional (has decimal places)
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.IsFract(System.Decimal)">
+            <summary>
+            RExtension: Finds if number is fractional (has decimal places)
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.Invert(System.Boolean)">
+            <summary>RExtension: Inverts bool value</summary>
+        </member>
+        <member name="M:RCommon.Extensions.Common.RemoveWhitespace(System.String)">
+            <summary>RExtension: Removes all white-space characters from string</summary>
+            <param name="input">original string</param>
+            <returns>string with no white-space characters</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.Append``1(``0[],``0[])">
+            <summary>RExtension: Copy elements of second array to the end of first, while resizing first array.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="first">The array to append to.</param>
+            <param name="second">The array to append.</param>
+            <returns>Updated original array (first).</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.Concat``1(``0[],``0[])">
+            <summary>RExtension: Creates new array from two other. First + second.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns>New array comprising of all cells of first and second array. 
+            Null if both arrays have zero length (no cells). </returns>
+        </member>
+        <member name="M:RCommon.Extensions.Common.GetScaleFactor(System.Windows.Controls.Viewbox)">
+            <summary>RExtension</summary>
+        </member>
+        <member name="T:RCommon.Extensions.Linq.Match`1">
+            <summary>For RCommon.Linq.Linq.CartesianSortNoDuplicates()</summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:RCommon.Extensions.Linq.JoinPair`2">
+            <summary>For storing pair of objects of different Type as result of Join operation.</summary>
+            <typeparam name="TLeft"></typeparam>
+            <typeparam name="TRight"></typeparam>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.IsSubsetOf``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>Finds if "subset" collection's items are all present in "superset" collection</summary>
+            <returns>True if "subset" collection's items are all present in "superset" collection. False otherwise.</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.IsSupersetOf``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>Finds if "subset" collection's items are all present in "superset" collection</summary>
+            <returns>True if "subset" collection's items are all present in "superset" collection. False otherwise.</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.Diff``4(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+            <summary>
+            BAD !! Doesn't really use Enumerable practices.
+            <para>
+            Creates enumerable with only items that are in only one of collections.
+            </para>
+            </summary>
+            <typeparam name="TOuter">First (outer) collection's Type.</typeparam>
+            <typeparam name="TInner">Second (inner) collection's Type.</typeparam>
+            <typeparam name="TKey">Key Type. Must be same for both collections.</typeparam>
+            <typeparam name="TResult">Type of resulting IEnumebrable (can be Anonymous).</typeparam>
+            <param name="outerColl">First collection (outer).</param>
+            <param name="innerColl">Second collection (inner).</param>
+            <param name="outerKeySelector">Function that returns key property of outer item.</param>
+            <param name="innerKeySelector">Function that returns key property of inner item.</param>
+            <param name="resultSelector">Function that creates retuned instances.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.UpdateFromDestructive``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{``0,``1})">
+            <summary>!! This function overload CHANGES the second (source) collection !!
+            <para>Updates first collection to match the second collection.</para>
+            <para>Removing items from first collection that are not in second collection,</para>
+            <para>Adding items to first collection that are missing.</para></summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="collToUpdate">Collection to update (first, target).</param>
+            <param name="collUpdatesSource">Collection to get updated data from (second, source).</param>
+            <param name="keySelector"></param>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.UpdateFrom``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{``0,``1})">
+            <summary>
+            Updates first collection to match the second collection.
+            <para>Removing items from first collection that are not in second collection,</para>
+            <para>Adding items to first collection that are missing.</para>
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="collToUpdate">Collection to update (first, target).</param>
+            <param name="collUpdatesSource">Collection to get updated data from (second, source).</param>
+            <param name="keySelector"></param>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.UpdateFromDestructive``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1},System.Func{``0,``1,System.Boolean})">
+            <summary>!! This function overload CHANGES the second (source) collection !!
+            <para>Updates first collection to match the second collection.</para>
+            <para>Removing items from first collection that are not in second collection,</para>
+            <para>Items from source (second) collection that are missing in first collection are left in source collection. Other are deleted from it.</para></summary>
+            <param name="collToUpdate">Collection to update (first, target).</param>
+            <param name="collUpdatesSource">Collection to get updated data from (second, source).</param>
+            <param name="commonComparer">Function that takes T1 and T2 items as params and returns if the items have the same key (are "common").</param>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.CartesianSortNoDuplicates``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},``0[]@,System.Collections.Generic.List{RCommon.Extensions.Linq.Match{``0}}@,``0[]@,System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>If used on DbSet, this loads data to memory and than executes on them ! = bad, slow.</summary>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.CartesianSortNoDuplicates``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1},``0[]@,System.Collections.Generic.List{System.Tuple{``0,``1}}@,``1[]@,System.Func{``0,``1,System.Boolean})">
+            <summary>If used on DbSet, this loads data to memory and than executes on them ! = bad, slow.</summary>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.InnerJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. The default
+            equality comparer is used to compare keys.
+            <para>
+            Items from BOTH sides that DON'T have matching item on the other side are NOT included !
+            </para>
+            <para>
+            Items that have MULTIPLE matching items on the other side will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that has elements of type TResult
+            that are obtained by performing an inner join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.InnerJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. A specified
+            System.Collections.Generic.IEqualityComparer`1 is used to compare keys.
+            <para>
+            Items from BOTH sides that DON'T have matching item on the other side are NOT returned !
+            </para>
+            <para>
+            Items that have MULTIPLE matching items on the other side will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <param name="comparer">An System.Collections.Generic.IEqualityComparer`1 to hash and compare keys.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that has elements of type TResult
+            that are obtained by performing an inner join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.InnerJoin``4(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``1},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``1,``2}},System.Linq.Expressions.Expression{System.Func{``0,``1,``3}})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. The default
+            equality comparer is used to compare keys.
+            <para>
+            Items from BOTH sides that DON'T have matching item on the other side are NOT included !
+            </para>
+            <para>
+            Items that have MULTIPLE matching items on the other side will be included MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that has elements of type TResult
+            that are obtained by performing an inner join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.InnerJoin``4(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``1},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``1,``2}},System.Linq.Expressions.Expression{System.Func{``0,``1,``3}},System.Collections.Generic.IEqualityComparer{``2})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. A specified
+            System.Collections.Generic.IEqualityComparer`1 is used to compare keys.
+            <para>
+            Items from BOTH sides that DON'T have matching item on the other side are NOT included !
+            </para>
+            <para>
+            Items that have MULTIPLE matching items on the other side will be included MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <param name="comparer">An System.Collections.Generic.IEqualityComparer`1 to hash and compare keys.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that has elements of type TResult
+            that are obtained by performing an inner join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftOuterGroupJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. The default
+            equality comparer is used to compare keys.
+            <para>
+            Solo items from right are NOT included.
+            </para><para>
+            Solo items from left ARE included.
+            </para><para>
+            Items from right are grouped under matching items from left (left 1 : many right).
+            </para><para>
+            If items from right are matching multiple items from left, items from left will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that contains elements of type TResult
+            that are obtained by performing a grouped join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftOuterGroupJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
+            <summary>
+            Correlates the elements of two sequences based on key equality and groups the
+            results. A specified System.Collections.Generic.IEqualityComparer`1 is used to
+            compare keys.
+            <para>
+            Solo items from right are NOT included.
+            </para><para>
+            Solo items from left ARE included.
+            </para><para>
+            Items from right are grouped under matching items from left (left 1 : many right).
+            </para><para>
+            If items from right are matching multiple items from left, items from left will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <param name="comparer">An System.Collections.Generic.IEqualityComparer`1 to hash and compare keys.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that contains elements of type TResult
+            that are obtained by performing a grouped join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftOuterGroupJoin``4(System.Linq.IQueryable{``0},System.Linq.IQueryable{``1},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``1,``2}},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3}})">
+            <summary>
+            Correlates the elements of two sequences based on matching keys. The default
+            equality comparer is used to compare keys.
+            <para>
+            Solo items from right are NOT included.
+            </para><para>
+            Solo items from left ARE included.
+            </para><para>
+            Items from right are grouped under matching items from left (left 1 : many right).
+            </para><para>
+            If items from right are matching multiple items from left, items from left will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that contains elements of type TResult
+            that are obtained by performing a grouped join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftOuterGroupJoin``4(System.Linq.IQueryable{``0},System.Linq.IQueryable{``1},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``1,``2}},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1},``3}},System.Collections.Generic.IEqualityComparer{``2})">
+            <summary>
+            Correlates the elements of two sequences based on key equality and groups the
+            results. A specified System.Collections.Generic.IEqualityComparer`1 is used to
+            compare keys.
+            <para>
+            Solo items from right are NOT included.
+            </para><para>
+            Solo items from left ARE included.
+            </para><para>
+            Items from right are grouped under matching items from left (left 1 : many right).
+            </para><para>
+            If items from right are matching multiple items from left, items from left will be returned MULTIPLE times. 
+            </para>
+            </summary>
+            <typeparam name="TOuter">The type of the elements of the first sequence.</typeparam>
+            <typeparam name="TInner">type of the elements of the second sequence.</typeparam>
+            <typeparam name="TKey">The type of the keys returned by the key selector functions.</typeparam>
+            <typeparam name="TResult">The type of the result elements.</typeparam>
+            <param name="outer">The first sequence to join.</param>
+            <param name="inner">The sequence to join to the first sequence.</param>
+            <param name="outerKeySelector">A function to extract the join key from each element of the first sequence.</param>
+            <param name="innerKeySelector">A function to extract the join key from each element of the second sequence.</param>
+            <param name="resultSelector">A function to create a result element from two matching elements.</param>
+            <param name="comparer">An System.Collections.Generic.IEqualityComparer`1 to hash and compare keys.</param>
+            <returns>
+            An System.Collections.Generic.IEnumerable`1 that contains elements of type TResult
+            that are obtained by performing a grouped join on two sequences.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            outer or inner or outerKeySelector or innerKeySelector or resultSelector is null.
+            </exception>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftExcludingJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``3})">
+            <summary>Only items from Left (outer) table that DO NOT have counterpart in Right (inner) table are included.</summary>
+            <returns>Only items from Left (outer) table that DO NOT have counterpart in Right (inner) table.</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.FullExcludingJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2},System.Func{``0,``1,``3})">
+            <summary>
+            Only items that DO NOT have counterpart in oposite table are included.
+            </summary>
+            <returns>Only items that DO NOT have counterpart in oposite table.</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.LeftExcludingJoin``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Func{``0,``2})">
+            <summary>
+            Only items from Left table that DO NOT have counterpart in Right table are included.
+            <para>AKA: LEFT OUTER JOIN with exclusion.</para>
+            <para>! Not very optimized. Doesn't use cached hashes comparison etc.</para>
+            </summary>
+            <returns>Only items from Left table that DO NOT have counterpart in Right table.</returns>
+        </member>
+        <member name="M:RCommon.Extensions.Linq.LinqExtensions.FullExcludingJoin``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Func{``0,``1,``2})">
+            <summary>
+            Only items that DO NOT have any counterpart in oposite table are included.
+            <para>! Not very optimized. Doesn't use cached hashes comparison etc.</para>
+            </summary>
+            <returns>Only items that DO NOT have any counterpart in oposite table.</returns>
+        </member>
+        <member name="T:RCommon.Extensions.WPF">
+            <summary> Riva's Exptensions for WPF framework Types </summary>
+        </member>
+        <member name="M:RCommon.Extensions.WPF.GetScaleFactor(System.Windows.Controls.Viewbox)">
+            <summary>RExtension</summary>
+        </member>
+        <member name="M:RCommon.Extensions.WPF.RRenderWholeToBitmap(System.Windows.Media.Visual,System.Windows.Size)">
+            <summary>
+            Complicated and expensive method to really render, even partially visible Visual (Control ..), whole into bitmap.
+            </summary>
+            <param name="visual"></param>
+            <param name="size">Size of screenshot. Usually Control.Width,.Height or .DesiredSize</param>
+        </member>
+        <member name="M:RCommon.Extensions.WPF.GetBrightness(System.Windows.Media.Color)">
+            <devdoc>
+               <para>
+                  Returns the Hue-Saturation-Brightness (HSB) brightness
+                  for this <see cref='T:System.Drawing.Color'/> .
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:RCommon.Extensions.WPF.GetHue(System.Windows.Media.Color)">
+            <devdoc>
+               <para>
+                  Returns the Hue-Saturation-Brightness (HSB) hue
+                  value, in degrees, for this <see cref='T:System.Drawing.Color'/> .  
+                  If R == G == B, the hue is meaningless, and the return value is 0.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:RCommon.Extensions.WPF.GetSaturation(System.Windows.Media.Color)">
+            <devdoc>
+               <para>
+                  The Hue-Saturation-Brightness (HSB) saturation for this
+               <see cref='T:System.Drawing.Color'/>
+               .
+            </para>
+            </devdoc>
+        </member>
+        <member name="T:RCommon.RDebugLog.D">
+            <summary>Riva Debug framework</summary>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.DbgClass.#ctor(RCommon.RDebugLog.D.DbgClass.sDbgTxtStyle)">
+            <summary>Is active = false by default !</summary>
+        </member>
+        <member name="M:RCommon.RDebugLog.D._WriteLineOI_Base(System.Byte,System.Object,System.String,System.String,System.Object[])">
+            <param name="objectForObjInfo">can be null</param>
+            <param name="memberName">can be null</param>
+            <param name="msgFormat">can be null</param>
+            <param name="msgArgs">can be left out</param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOI(System.Byte,System.Object,System.String,System.String,System.Object[])">
+            <param name="objectForObjInfo">can be null</param>
+            <param name="memberName">can be null</param>
+            <param name="msgFormat">can be null</param>
+            <param name="msgArgs">can be left out</param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOI(RCommon.RDebugLog.I_RDbgLogable,System.String,System.String,System.Object[])">
+            <param name="memberName">can be null</param>
+            <param name="msgFormat"></param>
+            <param name="msgArgs"></param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOI(RCommon.RDebugLog.I_RDbgLogable,System.String)">
+            <param name="msg">can be null</param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOI(RCommon.RDebugLog.I_RDbgLogable,System.String,System.String)">
+            <param name="memberName">can be null</param>
+            <param name="msg">can be null</param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOIS(RCommon.RDebugLog.I_RDbgLogable,System.String)">
+            <summary>WriteLine ObjectInfo SHORT</summary>
+            <param name="objectForObjInfo"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="M:RCommon.RDebugLog.D.WriteLineOIS(RCommon.RDebugLog.I_RDbgLogable,System.String,System.String)">
+            <param name="memberName">can be null</param>
+            <param name="msg">can be null</param>
+        </member>
+        <member name="F:RCommon.RDebugLog.D._instance">
+            <summary>
+            (Allocate ourselves. {= this not true. changed for -Thread safety-)
+            We have a private constructor, so no one else can.
+            This is non-lazy instantiation.
+            </summary>
+        </member>
+        <member name="P:RCommon.RDebugLog.D.Instance">
+            <summary>
+            Access SiteStructure.Instance to get the singleton object.
+            Then call methods on that instance.
+            </summary>
+        </member>
+        <member name="T:RCommon.RDebugLog.DbgWindow">
+            <summary>
+            Interaction logic for DbgWindow.xaml
+            </summary>
+            <summary>
+            DbgWindow
+            </summary>
+        </member>
+        <member name="M:RCommon.RDebugLog.DbgWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:RCommon.RDebugLog.I_RDbgLogable.DbgName">
+            <summary>Muze byt poznavaci debug jmeno, nebo se sem da presmerovat Control.Name</summary>
+        </member>
+        <member name="E:RCommon.RObservableObject.PropertyChanged">
+            <summary>Occurs when a property value changes.</summary>
+        </member>
+        <member name="M:RCommon.RObservableObject.OnPropertyChanged(System.String)">
+            <summary>Raises PropertyChanged event.</summary>
+        </member>
+        <member name="M:RCommon.RObservableObjectDbg.SetFieldFake``1(``0,``0,System.String,System.String)">
+            <summary>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</summary>
+        </member>
+        <member name="M:RCommon.RObservableObjectDbg.SetField``1(``0,``0,System.String,System.String)">
+            <summary>DEPRECATED. Will throw exception ! Use SetFieldFake() instead.
+            <para>This method overload DOESN'T actually SET the value. Only writes debug and raises OnPropertyChanged.</para></summary>
+        </member>
+        <member name="T:RCommon.RObservableObjectEx.ePCE">
+            <summary>Property Changed ?Events? options</summary>
+        </member>
+        <member name="F:RCommon.RObservableObjectEx.ePCE.None">
+            <summary>no Event or affiliated action will be fired (0)</summary>
+        </member>
+        <member name="F:RCommon.RObservableObjectEx.ePCE.EventsOnly">
+            <summary>no affiliated action will be fired (1)</summary>
+        </member>
+        <member name="F:RCommon.RObservableObjectEx.ePCE.All">
+            <summary>Event and all affiliated actions will be fired (2)</summary>
+        </member>
+        <member name="F:RCommon.RObservableObjectEx.PCE">
+            <summary>Property Changed ?Events?
+            <para>No OnPropertyChanged events and affiliated actions will be fired if 'None'</para>
+            <para>   To prevent premature Vypocet() update calls when Constructor is still initializing variables</para>
+            <para>   And to prevent unneeded calls of Vypocet() etc. calls when Vypocet() is already now running.</para>
+            </summary>
+        </member>
+        <member name="T:RCommon.RObservableWindow">
+            <summary>
+            Usage:
+            <para>c#: public partial class MyWindow : RObservableWindow</para>
+            <para>XAML:</para>
+            <para>&lt;RCommon:RObservableWindow x:Class="MyProjectNamespace.MyWindow"</para>
+            <para>xmlns:RCommon="clr-namespace:RCommon;assembly=RCommon"</para>
+            </summary>
+        </member>
+        <member name="T:RCommon.RVisualTreeHelper">
+            <summary>
+            <para>** VisualTree is structure that contains all visual elements even inside Control Templates</para>
+            <para>LogicalTree is structure that contains nodes, that are FrameworkElements ("Controls") or any type (string, int ..). It does not contain insides of their Templates etc.</para>
+            </summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindAncestor``1(System.Windows.DependencyObject)">
+            <summary>Returns the first ancester of specified type or Null if not found.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindAncestor``1(System.Windows.DependencyObject,``0)">
+            <summary>Returns a specific ancester of an object or Null if not found.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindAncestor``1(System.Windows.DependencyObject,System.String)">
+            <summary>Finds an ancestor object by name and type or Null if not found.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindChild``1(System.Windows.DependencyObject,System.String)">
+            <summary>Looks for a child control within a parent by name. Recursively.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindChild``1(System.Windows.DependencyObject)">
+            <summary>Looks for a child control within a parent by type. Recursively.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.FindDirectChild``1(System.Windows.DependencyObject)">
+            <summary>Looks for a direct child control within a parent by type.</summary>
+        </member>
+        <member name="M:RCommon.RVisualTreeHelper.GetTreeViewItemParent(System.Windows.Controls.TreeViewItem)">
+            <summary></summary>
+            <param name="item"></param>
+            <returns>Returned item should be boxed TreeViewItem.</returns>
+        </member>
+        <member name="T:RCommon.SortedObservableCollection`1">
+            <summary>
+            A Sorted ObservableCollection.
+            - Sorts on Insert.
+            </summary>
+            <typeparam name="T">The type held within collection</typeparam>
+        </member>
+        <member name="T:RCommon.SimpleSortedObservableCollection`1">
+            <summary>
+            A Sorted ObservableCollection.
+            - Sorts on Insert.
+            - Requires that T implements IComparable.
+            </summary>
+            <typeparam name="T">The type held within collection</typeparam>
+        </member>
+        <member name="T:RCommon.SQL.SQLQueryBuilder">
+            <summary>
+            For efficient replacement of table name, column names etc. inside SQL query string.
+            </summary>
+        </member>
+        <member name="M:RCommon.SQL.SQLQueryBuilder.#ctor(System.String)">
+            <summary>Initializes SQLQueryBuilder with SQL query string with params denoted as: @ParamName@ or @param name@ etc.
+            <para>After creation, SQLQueryBuilder can be reused many times with different BuildQuery() calls.</para></summary>
+            <param name="queryWithParams">SQL query string with params denoted as: @ParamName@ or @param name@ etc.</param>
+        </member>
+        <member name="M:RCommon.SQL.SQLQueryBuilder.BuildQuery(System.Tuple{System.String,System.String}[])">
+            <summary>Costructs SQL query string by replacing @MyParam@ with string from paramsValues.
+            <para>SQLQueryBuilder can be reused many times with different BuildQuery() calls.</para></summary>
+            <param name="paramsValues">Tuple(ParamName,ParamNewString)</param>
+            <returns></returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.AreClose(System.Double,System.Double)">
+            <summary>
+            AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+            not they are within epsilon of each other.  Note that this epsilon is proportional
+            to the numbers themselves to that AreClose survives scalar multiplication.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.LessThan(System.Double,System.Double)">
+            <summary>
+            LessThan - Returns whether or not the first double is less than the second double.
+            That is, whether or not the first is strictly less than *and* not within epsilon of
+            the other number.  Note that this epsilon is proportional to the numbers themselves
+            to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the LessThan comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.GreaterThan(System.Double,System.Double)">
+            <summary>
+            GreaterThan - Returns whether or not the first double is greater than the second double.
+            That is, whether or not the first is strictly greater than *and* not within epsilon of
+            the other number.  Note that this epsilon is proportional to the numbers themselves
+            to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the GreaterThan comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.LessThanOrClose(System.Double,System.Double)">
+            <summary>
+            LessThanOrClose - Returns whether or not the first double is less than or close to
+            the second double.  That is, whether or not the first is strictly less than or within
+            epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+            themselves to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the LessThanOrClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.GreaterThanOrClose(System.Double,System.Double)">
+            <summary>
+            GreaterThanOrClose - Returns whether or not the first double is greater than or close to
+            the second double.  That is, whether or not the first is strictly greater than or within
+            epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+            themselves to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the GreaterThanOrClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.IsOne(System.Double)">
+            <summary>
+            IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+            but this is faster.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value"> The double to compare to 1. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.IsZero(System.Double)">
+            <summary>
+            IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
+            but this is faster.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value"> The double to compare to 0. </param>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.AreClose(System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Compares two points for fuzzy equality.  This function
+            helps compensate for the fact that double values can 
+            acquire error when operated upon
+            </summary>
+            <param name='point1'>The first point to compare</param>
+            <param name='point2'>The second point to compare</param>
+            <returns>Whether or not the two points are equal</returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.AreClose(System.Windows.Size,System.Windows.Size)">
+            <summary>
+            Compares two Size instances for fuzzy equality.  This function
+            helps compensate for the fact that double values can 
+            acquire error when operated upon
+            </summary>
+            <param name='size1'>The first size to compare</param>
+            <param name='size2'>The second size to compare</param>
+            <returns>Whether or not the two Size instances are equal</returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.AreClose(System.Windows.Vector,System.Windows.Vector)">
+            <summary>
+            Compares two Vector instances for fuzzy equality.  This function
+            helps compensate for the fact that double values can 
+            acquire error when operated upon
+            </summary>
+            <param name='vector1'>The first Vector to compare</param>
+            <param name='vector2'>The second Vector to compare</param>
+            <returns>Whether or not the two Vector instances are equal</returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.AreClose(System.Windows.Rect,System.Windows.Rect)">
+            <summary>
+            Compares two rectangles for fuzzy equality.  This function
+            helps compensate for the fact that double values can 
+            acquire error when operated upon
+            </summary>
+            <param name='rect1'>The first rectangle to compare</param>
+            <param name='rect2'>The second rectangle to compare</param>
+            <returns>Whether or not the two rectangles are equal</returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.IsBetweenZeroAndOne(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.DoubleToInt(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MS.Internal.DoubleUtil451.RectHasNaN(System.Windows.Rect)">
+            <summary>
+            rectHasNaN - this returns true if this rect has X, Y , Height or Width as NaN.
+            </summary>
+            <param name='r'>The rectangle to test</param>
+            <returns>returns whether the Rect has NaN</returns>        
+        </member>
+        <member name="T:MS.Internal.DoubleUtilities4x">
+            <summary>
+            DoubleUtil uses fixed eps to provide fuzzy comparison functionality for doubles.
+            Note that FP noise is a big problem and using any of these compare 
+            methods is not a complete solution, but rather the way to reduce 
+            the probability of repeating unnecessary work.
+            </summary>
+        </member>
+        <member name="M:MS.Internal.DoubleUtilities4x.IsZero(System.Double)">
+            <summary>
+            IsZero - Returns whether or not the double is "close" to 0.  Same as AreClose(double, 0),
+            but this is faster.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value"> The double to compare to 0. </param>
+        </member>
+        <member name="T:MS.Standard.DoubleUtilities451">
+            <summary>
+            DoubleUtil uses fixed eps to provide fuzzy comparison functionality for doubles.
+            Note that FP noise is a big problem and using any of these compare 
+            methods is not a complete solution, but rather the way to reduce 
+            the probability of repeating unnecessary work.
+            </summary>
+        </member>
+        <member name="F:MS.Standard.DoubleUtilities451.Epsilon">
+            <summary>
+            Epsilon - more or less random, more or less small number.
+            </summary>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.AreClose(System.Double,System.Double)">
+            <summary>
+            AreClose returns whether or not two doubles are "close".  That is, whether or 
+            not they are within epsilon of each other.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false. 
+            </summary>
+            <param name="value1">The first double to compare.</param>
+            <param name="value2">The second double to compare.</param>
+            <returns>The result of the AreClose comparision.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.LessThan(System.Double,System.Double)">
+            <summary>
+            LessThan returns whether or not the first double is less than the second double.
+            That is, whether or not the first is strictly less than *and* not within epsilon of
+            the other number.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.
+            </summary>
+            <param name="value1">The first double to compare.</param>
+            <param name="value2">The second double to compare.</param>
+            <returns>The result of the LessThan comparision.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.GreaterThan(System.Double,System.Double)">
+            <summary>
+            GreaterThan returns whether or not the first double is greater than the second double.
+            That is, whether or not the first is strictly greater than *and* not within epsilon of
+            the other number.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.
+            </summary>
+            <param name="value1">The first double to compare.</param>
+            <param name="value2">The second double to compare.</param>
+            <returns>The result of the GreaterThan comparision.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.LessThanOrClose(System.Double,System.Double)">
+            <summary>
+            LessThanOrClose returns whether or not the first double is less than or close to
+            the second double.  That is, whether or not the first is strictly less than or within
+            epsilon of the other number.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.
+            </summary>
+            <param name="value1">The first double to compare.</param>
+            <param name="value2">The second double to compare.</param>
+            <returns>The result of the LessThanOrClose comparision.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.GreaterThanOrClose(System.Double,System.Double)">
+            <summary>
+            GreaterThanOrClose returns whether or not the first double is greater than or close to
+            the second double.  That is, whether or not the first is strictly greater than or within
+            epsilon of the other number.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.
+            </summary>
+            <param name="value1">The first double to compare.</param>
+            <param name="value2">The second double to compare.</param>
+            <returns>The result of the GreaterThanOrClose comparision.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.IsFinite(System.Double)">
+            <summary>
+            Test to see if a double is a finite number (is not NaN or Infinity).
+            </summary>
+            <param name='value'>The value to test.</param>
+            <returns>Whether or not the value is a finite number.</returns>
+        </member>
+        <member name="M:MS.Standard.DoubleUtilities451.IsValidSize(System.Double)">
+            <summary>
+            Test to see if a double a valid size value (is finite and > 0).
+            </summary>
+            <param name='value'>The value to test.</param>
+            <returns>Whether or not the value is a valid size value.</returns>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
