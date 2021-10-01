@@ -12,6 +12,7 @@ namespace GenericControllersTest
     {
         private XInputIdentifyWindow XBoxIdentifyWindow;
 
+        [STAThread]
         private void AppStartup(object sender, StartupEventArgs e)
         {
             ShutdownMode = ShutdownMode.OnLastWindowClose;

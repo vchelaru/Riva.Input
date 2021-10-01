@@ -56,7 +56,6 @@ namespace GenericControllersTest
         #endregion -- GUI data END
 
 
-
         public MainWindow()
         {
             DataContext = this;
