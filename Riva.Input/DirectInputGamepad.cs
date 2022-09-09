@@ -64,8 +64,8 @@ namespace Riva.Input
         public readonly GamingDeviceType Type;
 
 
-        protected JoystickState _RawDeviceState;
-        public JoystickState RawDeviceState { get { return _RawDeviceState; } }
+        protected Microsoft.DirectX.DirectInput.JoystickState _RawDeviceState;
+        public Microsoft.DirectX.DirectInput.JoystickState RawDeviceState { get { return _RawDeviceState; } }
 
         protected bool _RawDPadsStatesStale = true;
         protected int[] _RawDPadsStates;

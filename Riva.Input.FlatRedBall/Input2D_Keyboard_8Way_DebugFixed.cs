@@ -36,7 +36,7 @@ namespace Riva.Input.FlatRedBall
         private float _Length;
 
         // - For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.Keyboard; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.Keyboard; } }
 
         /*public Guid? DeviceID { get { return null; } }
         public PlayerIndex? XNAPlayerIndex { get { return null; } }*/
@@ -62,51 +62,50 @@ namespace Riva.Input.FlatRedBall
             if (_Keyboard.KeyDown(Keys.Up) || _Keyboard.KeyDown(Keys.NumPad8))
             {
                 _GotInput = true;
-
-                _Facing += Input2DKeyboard8Way.VECTOR_UP;
+                _Facing +=  Riva.Input.FlatRedBall.Input2D_Keyboard_8Way.VECTOR_UP;
             }
             if (_Keyboard.KeyDown(Keys.Down) || _Keyboard.KeyDown(Keys.NumPad2))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_DOWN;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_DOWN;
             }
             if (_Keyboard.KeyDown(Keys.Left) || _Keyboard.KeyDown(Keys.NumPad4))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_LEFT;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_LEFT;
             }
             if (_Keyboard.KeyDown(Keys.Right) || _Keyboard.KeyDown(Keys.NumPad6))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_RIGHT;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_RIGHT;
             }
 
             if (_Keyboard.KeyDown(Keys.NumPad1))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_LEFT_DOWN;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_LEFT_DOWN;
             }
             if (_Keyboard.KeyDown(Keys.NumPad3))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_RIGHT_DOWN;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_RIGHT_DOWN;
             }
             if (_Keyboard.KeyDown(Keys.NumPad9))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_RIGHT_UP;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_RIGHT_UP;
             }
             if (_Keyboard.KeyDown(Keys.NumPad7))
             {
                 _GotInput = true;
 
-                _Facing += Input2DKeyboard8Way.VECTOR_LEFT_UP;
+                _Facing += Input2D_Keyboard_8Way.VECTOR_LEFT_UP;
             }
 
             if (_GotInput)

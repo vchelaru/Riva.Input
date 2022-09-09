@@ -21,7 +21,7 @@ namespace Riva.Input.FlatRedBall
         public DirectInputGamepad InputDevice;
 
         // - For Settings (serialization / deserialization)
-        public eInputDeviceType DeviceType { get { return eInputDeviceType.DirectInputDevice; } }
+        public InputDeviceType DeviceType { get { return InputDeviceType.DirectInputDevice; } }
         //public Guid? DeviceID { get { return InputDevice.Guid; } }
 
 

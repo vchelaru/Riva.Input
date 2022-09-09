@@ -67,9 +67,9 @@
     <Reference Include="Microsoft.DirectX.DirectInput, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Unofficial.Microsoft.DirectX.DirectInput.5.4.0.2904\lib\net20\Microsoft.DirectX.DirectInput.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
+      <HintPath>..\Riva.Input\Libraries\DesktopGl\Debug\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="RCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -176,6 +176,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Riva.Input.FrbNetFramework\Riva.Input.FrbNetFramework.csproj">
+      <Project>{bccb1030-4dfb-4208-aafa-8e4e557939e4}</Project>
+      <Name>Riva.Input.FrbNetFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Riva.Input\Riva.Input.csproj">
       <Project>{61d5a386-2a29-409d-a353-7d50005282c4}</Project>
       <Name>Riva.Input</Name>
